@@ -1,11 +1,7 @@
 
 
 const AdminDefault = () => {
-	return (
-		<div>
-			<h1>Admin Default</h1>
-		</div>
-	);
+	return null
 };
 
 export default AdminDefault;

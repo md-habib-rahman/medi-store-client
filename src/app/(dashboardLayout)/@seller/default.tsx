@@ -1,11 +1,7 @@
 
 
 const SellerDefault = () => {
-	return (
-		<div>
-			<h1>Seller Default</h1>
-		</div>
-	);
+	return null
 };
 
 export default SellerDefault;
