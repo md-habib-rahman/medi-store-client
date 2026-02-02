@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -13,8 +14,16 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { RegisterPalyload } from "@/types/login.types"
+import Link from "next/link"
 
-export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
+export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
+
+// 	const onSubmit=async(data:RegisterPalyload)=>{
+		
+// const {name,email,password,confirmPassword}=data
+// console.log({name,email,password,confirmPassword})
+// 	}
   return (
     <Card {...props}>
       <CardHeader>
@@ -24,7 +33,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
+        <form >
           <FieldGroup>
             <Field>
               <FieldLabel htmlFor="name">Full Name</FieldLabel>
@@ -38,10 +47,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
                 placeholder="m@example.com"
                 required
               />
-              <FieldDescription>
-                We&apos;ll use this to contact you. We will not share your email
-                with anyone else.
-              </FieldDescription>
+             
             </Field>
             <Field>
               <FieldLabel htmlFor="password">Password</FieldLabel>
@@ -60,11 +66,9 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
             <FieldGroup>
               <Field>
                 <Button type="submit">Create Account</Button>
-                <Button variant="outline" type="button">
-                  Sign up with Google
-                </Button>
+               
                 <FieldDescription className="px-6 text-center">
-                  Already have an account? <a href="#">Sign in</a>
+                  Already have an account? <Link href="/login">Sign in</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>

@@ -1,71 +1,161 @@
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+"use client";
+import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
-import Link from "next/link"
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { loginSchema } from "./login-schema";
+import { authClient } from "@/lib/auth-client";
+import { LoginPayload } from "@/types/login.types";
 
-export function LoginForm({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+const LoginForm = () => {
+  const seachParams = useSearchParams();
+  const redirect = seachParams.get("redirectPath");
+  const router = useRouter();
+  const form = useForm({
+    resolver: zodResolver(loginSchema),
+  });
+  const {
+    formState: { isSubmitting },
+  } = form;
+  const onSubmit = async (data:LoginPayload) => {
+    try {
+    //   console.log(data);
+      const res = await authClient.signIn.email(data);
+      console.log(res);
+      if (res.data?.user) {
+        toast.success("Logged in");
+        if (redirect) {
+          router.push(redirect);
+        } else {
+          router.push("/");
+        }
+      } else {
+        toast.error(res.error);
+      }
+    } catch (error: any) {
+      toast.error(error);
+    }
+  };
+  const demoCredentials = {
+    admin: {
+      email: "admin@gmail.com",
+      password: "admin123",
+    },
+    landlord: {
+      email: "user@gmail.com",
+      password: "admin123",
+    },
+  };
+
+  const session=authClient.useSession();
+console.log(session)
+
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form>
-            <FieldGroup>
-              <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  required
-                />
-              </Field>
-              <Field>
-                <div className="flex items-center">
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
-                </div>
-                <Input id="password" type="password" required />
-              </Field>
-              <Field>
-                <Button type="submit">Login</Button>
-                <Button variant="outline" type="button">
-                  Login with Google
-                </Button>
-                <FieldDescription className="text-center">
-                  Don&apos;t have an account? <Link href="/register">Sign up</Link>
-                </FieldDescription>
-              </Field>
-            </FieldGroup>
-          </form>
-        </CardContent>
-      </Card>
+    <div className="max-w-md w-full border-2 rounded-xl m-4 p-5">
+      <div className="flex items-center mb-3 gap-2">
+        <div>
+          <h1 className="text-lg  font-semibold">Login</h1>
+          <small className="text-gray-600">
+            Join us today and start your journey
+          </small>
+        </div>
+      </div>
+      <div className="flex items-center my-5 justify-around">
+        <Button
+          variant="default"
+          size="sm"
+          className="cursor-pointer"
+          onClick={() => {
+            form.setValue("email", demoCredentials.admin.email);
+            form.setValue("password", demoCredentials.admin.password);
+          }}
+        >
+          Demo Admin
+        </Button>
+        <Button
+          variant="default"
+          size="sm"
+          className="cursor-pointer"
+          onClick={() => {
+            form.setValue("email", demoCredentials.landlord.email);
+            form.setValue("password", demoCredentials.landlord.password);
+          }}
+        >
+          Demo User
+        </Button>
+      </div>
+      <Form {...form}>
+        <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter your email"
+                    {...field}
+                    value={field.value || ""}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="Enter password"
+                    {...field}
+                    value={field.value || ""}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button className="w-full mb-3 cursor-pointer" type="submit">
+            {isSubmitting ? "Logging..." : "login"}
+          </Button>
+          <div className="flex items-center justify-center">
+            <small className="text-gray-600">
+              Don&apos;t have any account?{" "}
+              <Link href={"/register"} className="text-primary">
+                Register
+              </Link>
+            </small>
+          </div>
+
+          <div className="flex items-center justify-center ">
+            <Link href={"/"}>
+              <Button variant="default" className="w-full cursor-pointer">
+                Back To Home
+              </Button>
+            </Link>
+          </div>
+        </form>
+      </Form>
     </div>
-  )
-}
+  );
+};
+
+export default LoginForm;

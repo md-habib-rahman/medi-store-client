@@ -14,8 +14,11 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
+import { getUser } from "@/services/auth"
 
-export default function DashboardLayout({	
+
+
+export default async function DashboardLayout({	
 	admin,
 	seller,
 }:{	
@@ -23,6 +26,8 @@ export default function DashboardLayout({
 	seller:React.ReactNode
 }) {
 	const userRole='seller'
+	// const userData=await getUser()
+	// console.log(userData)
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -50,7 +55,7 @@ export default function DashboardLayout({
 
         <div className="flex flex-1 flex-col gap-4 p-4">
 			{userRole==='seller'?seller:admin}
-         
+        
         </div>
       </SidebarInset>
     </SidebarProvider>
