@@ -1,5 +1,4 @@
 import { env } from "process";
-import { ur } from "zod/v4/locales";
 
 const API_URL = env.NEXT_PUBLIC_BASE_API;
 
@@ -10,6 +9,7 @@ interface GetMedicinePrams {
 	categoryId: string;
 	sortBy: string;
 	sortOrder: string;
+	id:string;
 }
 
 export const MedicineService = {
@@ -24,12 +24,25 @@ export const MedicineService = {
 					}
 				})
 			}
-			const res = await fetch(ur.toString(), { next: { revalidate: 60 } })
+			const res = await fetch(url.toString(), { next: { revalidate: 60 } })
 
 			const data = await res.json()
 			return data
 		} catch (err) {
 			return { data: null, error: { error: err, message: "something went wrong!" } }
+		}
+	},
+
+	getMedicineById: async function (id: string) {
+		try {
+			const res = await fetch((`${API_URL}/medicines?id=${id}`))
+
+			const data = await res.json()
+
+			return { data: data, error: null }
+
+		} catch (err) {
+			return { data: null, error: { message: "something went wrong!" } }
 		}
 	}
 }

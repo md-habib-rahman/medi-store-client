@@ -10,6 +10,12 @@ export interface MedicineCardType {
 	details: string;
 	isAvailable: boolean;
 	thumbnail: string;
-	createdAt: Date;
-	updatedAt: Date;
+	createdAt: string;
+	updatedAt: string;
+	category: {
+		title: string;
+	};
+	seller: {
+		name: string;
+	};
 }

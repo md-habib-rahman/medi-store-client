@@ -73,8 +73,8 @@ export default function Navbar() {
               Home
             </Link>
 
-            <Link href="/products" className="text-primary font-medium ">
-              Products
+            <Link href="/shops" className="text-primary font-medium ">
+              Shop
             </Link>
 
             <Link href="/about" className="text-primary font-medium ">

@@ -64,7 +64,7 @@ const MedicineCard = ({ medicine }:MedicineCardType) => {
 
   return (
     <Link
-      href={PRODUCT_CARD.link}
+      href={`/shops/medicine/${medicine.id}`}
       className={cn(
         "block max-w-md transition-opacity hover:opacity-80",
         
