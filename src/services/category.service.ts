@@ -6,6 +6,7 @@ const API_URL = env.NEXT_PUBLIC_BASE_API;
 interface GetCategoryParams {
 
 	id?: string;
+	page?: string;
 }
 
 export interface ServiceOptions {

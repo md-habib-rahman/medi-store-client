@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,9 +15,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 
-export const AddMedicineForm = () => {
-
-	
+export const AddMedicineForm = () => {	
 
   const addMedicine = async (formData: FormData) => {
     "use server";

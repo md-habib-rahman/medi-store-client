@@ -13,9 +13,9 @@ import { CategoryResType } from "@/types/medicine.types";
 import { Trash } from "lucide-react";
 import { toast } from "sonner";
 
-export function CategoriesTable({ data }: CategoryResType[]) {
+export function CategoriesTable({ data }) {
   const onDelete = async (id: string) => {
-    const toastId = toast.loading("Creating....");
+    const toastId = toast.loading("Deleting....");
 
     try {
       const res = await deleteCategory(id);
@@ -39,7 +39,7 @@ export function CategoriesTable({ data }: CategoryResType[]) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.map((cat) => (
+        {data?.data?.map((cat) => (
           <TableRow key={cat.id}>
             <TableCell className="font-medium">{cat.title}</TableCell>
 
