@@ -76,6 +76,9 @@ export default function Navbar() {
             <Link href="/shops" className="text-primary font-medium ">
               Shop
             </Link>
+            <Link href="/dashboard" className="text-primary font-medium ">
+              Dashboard
+            </Link>
 
             <Link href="/about" className="text-primary font-medium ">
               About Us
@@ -136,6 +139,14 @@ export default function Navbar() {
                   variant="outline"
                 >
                   Login
+                </Button>
+              </Link>{" "}
+              <Link href="/register">
+                <Button
+                  className="rounded-full bg-secondary font-semibold hover:text-secondary border-primary hover:bg-primary cursor-pointer"
+                  variant="outline"
+                >
+                  Register
                 </Button>
               </Link>
             </div>

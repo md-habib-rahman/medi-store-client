@@ -19,3 +19,11 @@ export interface MedicineCardType {
 		name: string;
 	};
 }
+
+export interface CategoryResType {
+	id: string,
+	adminId: string,
+	title: string,
+	createdAt: string,
+	updatedAt: string
+}

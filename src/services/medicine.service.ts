@@ -1,4 +1,5 @@
 import { env } from "process";
+import { ServiceOptions } from "./category.service";
 
 const API_URL = env.NEXT_PUBLIC_BASE_API;
 
@@ -9,11 +10,11 @@ interface GetMedicinePrams {
 	categoryId: string;
 	sortBy: string;
 	sortOrder: string;
-	id:string;
+	id: string;
 }
 
 export const MedicineService = {
-	getMedicine: async function (params?: GetMedicinePrams) {
+	getMedicine: async function (params?: GetMedicinePrams, options?: ServiceOptions) {
 		try {
 			const url = new URL(`${API_URL}/medicines`)
 
@@ -24,7 +25,22 @@ export const MedicineService = {
 					}
 				})
 			}
-			const res = await fetch(url.toString(), { next: { revalidate: 60 } })
+
+			const config: RequestInit = {}
+
+			if (options?.cache) {
+				config.cache = options.cache
+			}
+
+			if (options?.revalidate) {
+				config.next = { revalidate: options.revalidate }
+			}
+
+			config.next = {
+				...config.next, tags: ["categories"]
+			}
+
+			const res = await fetch(url.toString(), config)
 
 			const data = await res.json()
 			return data

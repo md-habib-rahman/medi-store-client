@@ -12,9 +12,10 @@ export const proxy = async (req: NextRequest) => {
 	let isCustomer = false;
 
 	const { data } = await userService.getSession()
+	// console.log(data)
 	const role = data?.user?.role;
 
-	if (data.user) {
+	if (data?.user) {
 		isAuthenticated = true;
 
 		isAdmin = role === Roles.admin;
@@ -22,7 +23,7 @@ export const proxy = async (req: NextRequest) => {
 		isCustomer = role === Roles.user;
 	}
 	if (!isAuthenticated) {
-		return NextResponse.redirect(new URL('./login', req.url))
+		return NextResponse.redirect(new URL('/login', req.url))
 	}
 
 	if (pathname.startsWith('/dashboard')) {
@@ -37,5 +38,5 @@ export const proxy = async (req: NextRequest) => {
 }
 
 export const config = {
-	matcher: ['/dashboard']
+	matcher: ['/dashboard','/dashboard/:path*']
 }

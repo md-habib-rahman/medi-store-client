@@ -15,6 +15,7 @@ export const userService = {
 				cache: "no-store"
 			})
 			const session = await res.json()
+			console.log(session)
 			return { data: session, error: null }
 
 		} catch (err) {

@@ -1,9 +1,7 @@
+import { redirect } from "next/navigation";
+
 const SellerDashbaord = () => {
-	return (
-		<div>
-			<h1>Seller Dashbaord</h1>
-		</div>
-	);
+  return redirect("/dashboard/add-medicine");
 };
 
 export default SellerDashbaord;

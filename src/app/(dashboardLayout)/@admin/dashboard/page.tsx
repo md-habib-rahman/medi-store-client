@@ -1,9 +1,7 @@
+import { redirect } from "next/navigation";
+
 const AdminDashbaord = () => {
-	return (
-		<div>
-			<h1>Admin Dashbaord</h1>
-		</div>
-	);
+  return redirect("/dashboard/add-categories");
 };
 
 export default AdminDashbaord;

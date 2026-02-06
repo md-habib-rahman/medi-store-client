@@ -14,7 +14,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { loginSchema } from "./login-schema";
+import { loginSchema } from "./Form-schema";
 import { authClient } from "@/lib/auth-client";
 import { LoginPayload } from "@/types/login.types";
 
