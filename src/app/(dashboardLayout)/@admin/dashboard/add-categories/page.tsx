@@ -15,7 +15,7 @@ export default async function Page({
 	limit:10,
 	page:1,
 	total:0,
-	totalPage:1,
+	totalPages:1,
   }
 
   return (

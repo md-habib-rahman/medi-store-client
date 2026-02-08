@@ -1,7 +1,6 @@
 "use server"
 import { catData, categoryService } from "@/services/category.service"
-import { MedicineService } from "@/services/medicine.service"
-import { CategoryResType } from "@/types/medicine.types"
+import { MedicineData, MedicineService } from "@/services/medicine.service"
 import { updateTag } from "next/cache"
 
 export const getMedicine = async () => {
@@ -15,6 +14,12 @@ export const getCategory = async () => {
 export const addCategory = async (data: catData) => {
 	const res = await categoryService.createCategory(data)
 	updateTag("categories")
+	return res
+}
+
+export const addMedicine = async (data: MedicineData) => {
+	const res = await MedicineService.createMedicine(data)
+	updateTag("medicine")
 	return res
 }
 export const deleteCategory = async (id: string) => {

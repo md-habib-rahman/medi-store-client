@@ -7,7 +7,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Roles } from "@/constants/roles";
-import { userService } from "@/services/user.service";
+import { getSession } from "@/services/user.service";
 
 export default async function DashboardLayout({
   admin,
@@ -16,7 +16,7 @@ export default async function DashboardLayout({
   admin: React.ReactNode;
   seller: React.ReactNode;
 }) {
-  const { data } = await userService.getSession();
+  const { data } = await getSession();
   const user = data?.user;
 
   return (

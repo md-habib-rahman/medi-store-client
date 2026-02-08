@@ -17,6 +17,7 @@ import { toast } from "sonner";
 import { loginSchema } from "./Form-schema";
 import { authClient } from "@/lib/auth-client";
 import { LoginPayload } from "@/types/login.types";
+import { logIn } from "@/services/user.service";
 
 const LoginForm = () => {
   const seachParams = useSearchParams();
@@ -28,38 +29,43 @@ const LoginForm = () => {
   const {
     formState: { isSubmitting },
   } = form;
-  const onSubmit = async (data:LoginPayload) => {
+  const onSubmit = async (data: LoginPayload) => {
     try {
-    //   console.log(data);
+      //   console.log(data);
       const res = await authClient.signIn.email(data);
       console.log(res);
-      if (res.data?.user) {
+      if (res?.data?.user) {
         toast.success("Logged in");
         if (redirect) {
           router.push(redirect);
         } else {
           router.push("/");
+          router.refresh();
         }
       } else {
-        toast.error(res.error);
+        toast.error(res.error?.message);
       }
     } catch (error: any) {
-      toast.error(error);
+      toast.error("Login Error");
     }
   };
   const demoCredentials = {
     admin: {
-      email: "admin@gmail.com",
-      password: "admin123",
+      email: "admin@live.com",
+      password: "password1234",
     },
     landlord: {
-      email: "user@gmail.com",
-      password: "admin123",
+      email: "habib1@live.com",
+      password: "password1234",
+    },
+    seller: {
+      email: "seller@live.com",
+      password: "password1234",
     },
   };
 
-  const session=authClient.useSession();
-console.log(session)
+  //   const session = authClient.useSession();
+  // console.log(session)
 
   return (
     <div className="max-w-md w-full border-2 rounded-xl m-4 p-5">
@@ -92,7 +98,18 @@ console.log(session)
             form.setValue("password", demoCredentials.landlord.password);
           }}
         >
-          Demo User
+          Demo customer
+        </Button>
+        <Button
+          variant="default"
+          size="sm"
+          className="cursor-pointer"
+          onClick={() => {
+            form.setValue("email", demoCredentials.seller.email);
+            form.setValue("password", demoCredentials.seller.password);
+          }}
+        >
+          Demo seller
         </Button>
       </div>
       <Form {...form}>

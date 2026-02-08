@@ -15,18 +15,16 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 import { useState, useEffect } from "react";
+import { getSession, logOut } from "@/services/user.service";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
-export default function Navbar() {
+export default function Navbar({ session }) {
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const handleLogOut = () => {
-    // logout();
-    // setIsLoading(true);
-    // if (protectedRoutes.some((route) => pathname.match(route))) {
-    //   router.push("/");
-    // }
-  };
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,6 +35,23 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isMegaMenuOpen]);
+
+  const handleLogout = async () => {
+    try {
+      const res = await authClient.signOut();
+      console.log(res);
+      if (res?.data?.success) {
+        toast.success("Logged out successfully!");
+
+        router.push("/");
+        router.refresh();
+      } else {
+        toast.error("Something went wrong");
+      }
+    } catch (err) {
+      toast.error("Logout failed");
+    }
+  };
 
   return (
     <header className="border-b bg-secondary w-full sticky top-0 z-50">
@@ -87,69 +102,71 @@ export default function Navbar() {
 
           {/* Right Side Navigation */}
           <nav className="flex items-center gap-2">
-            <div>
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <Avatar>
-                    <AvatarFallback className="text-2xl font-bold bg-indigo-500 text-white cursor-pointer">
-                      X
-                    </AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="min-w-[200px]">
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Link href="/profile">Profile</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/orders-details">Order Details</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/delivery">Delivery Address</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/wishlist">Wishlist</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    className=" cursor-pointer focus:bg-red-50"
-                    onClick={handleLogOut}
-                  >
-                    <LayoutDashboard className="mr-2 h-4 w-4" />
-                    <span>Dashboard</span>
-                  </DropdownMenuItem>
+            {session ? (
+              <div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <Avatar>
+                      <AvatarFallback className="text-2xl font-bold bg-indigo-500 text-white cursor-pointer">
+                        X
+                      </AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="min-w-[200px]">
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <Link href="/profile">Profile</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link href="/orders-details">Order Details</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link href="/delivery">Delivery Address</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link href="/wishlist">Wishlist</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      className=" cursor-pointer focus:bg-red-50"
+                      onClick={handleLogout}
+                    >
+                      <LayoutDashboard className="mr-2 h-4 w-4" />
+                      <span>Dashboard</span>
+                    </DropdownMenuItem>
 
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    className="text-red-500 cursor-pointer focus:bg-red-50"
-                    onClick={handleLogOut}
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      className="text-red-500 cursor-pointer focus:bg-red-50"
+                      onClick={handleLogout}
+                    >
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Log Out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            ) : (
+              <div>
+                <Link href="/login">
+                  <Button
+                    className="rounded-full bg-primary text-secondary font-semibold hover:text-primary hover:bg-secondary hover:border-primary"
+                    variant="outline"
                   >
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Log Out</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-
-            <div>
-              <Link href="/login">
-                <Button
-                  className="rounded-full bg-primary text-secondary font-semibold hover:text-primary hover:bg-secondary hover:border-primary"
-                  variant="outline"
-                >
-                  Login
-                </Button>
-              </Link>{" "}
-              <Link href="/register">
-                <Button
-                  className="rounded-full bg-secondary font-semibold hover:text-secondary border-primary hover:bg-primary cursor-pointer"
-                  variant="outline"
-                >
-                  Register
-                </Button>
-              </Link>
-            </div>
+                    Login
+                  </Button>
+                </Link>{" "}
+                <Link href="/register">
+                  <Button
+                    className="rounded-full bg-secondary font-semibold hover:text-secondary border-primary hover:bg-primary cursor-pointer"
+                    variant="outline"
+                  >
+                    Register
+                  </Button>
+                </Link>
+              </div>
+            )}
           </nav>
         </div>
       </div>

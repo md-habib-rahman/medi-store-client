@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
-import { userService } from "./services/user.service"
+
 import { Roles } from "./constants/roles";
+import { getSession } from "./services/user.service";
+
 
 export const proxy = async (req: NextRequest) => {
 
@@ -11,7 +13,7 @@ export const proxy = async (req: NextRequest) => {
 	let isSeller = false;
 	let isCustomer = false;
 
-	const { data } = await userService.getSession()
+	const { data } = await getSession()
 	// console.log(data)
 	const role = data?.user?.role;
 
@@ -38,5 +40,5 @@ export const proxy = async (req: NextRequest) => {
 }
 
 export const config = {
-	matcher: ['/dashboard','/dashboard/:path*']
+	matcher: ['/dashboard', '/dashboard/:path*']
 }
