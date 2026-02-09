@@ -29,7 +29,7 @@ interface PaginationControlsProps {
 
 export default function PaginationControls({ meta }: PaginationControlsProps) {
   const { limit, page: currentPage, total, totalPages } = meta;
-
+  console.log({ limit, page: currentPage, total, totalPages });
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -39,13 +39,13 @@ export default function PaginationControls({ meta }: PaginationControlsProps) {
     router.push(`?${params.toString()}`);
   };
 
-  const start=(currentPage-1)* limit
-  const end= Math.min(currentPage*limit,total);
+  const start = (currentPage - 1) * limit;
+  const end = Math.min(currentPage * limit, total);
 
   return (
     <div className="flex items-center justify-between px-2 py-4 border-t mt-4">
       <div className="text-sm text-muted-foreground">
-        Showing {start+1} to {end} of {total} results
+        Showing {start + 1} to {end} of {total} results
       </div>
 
       <div className="flex items-center space-x-2">

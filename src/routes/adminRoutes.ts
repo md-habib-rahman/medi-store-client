@@ -8,7 +8,7 @@ export const adminRoutes: Route[] = [{
 			url: '/dashboard/add-categories'
 		}, {
 			title: "User Management",
-			url: '/manage-users'
+			url: '/dashboard/manage-users'
 		}, {
 			title: "Log Out",
 			url: '/dashboard/log-out'
