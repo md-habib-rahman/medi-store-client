@@ -1,10 +1,11 @@
 "use server"
-import { catData, categoryService } from "@/services/category.service"
-import { MedicineData, MedicineService } from "@/services/medicine.service"
+import { catData, categoryService, ServiceOptions } from "@/services/category.service"
+import { GetMedicinePrams, MedicineData, MedicineService } from "@/services/medicine.service"
 import { updateTag } from "next/cache"
 
-export const getMedicine = async () => {
-	return await MedicineService.getMedicine()
+export const getMedicine = async (params?: GetMedicinePrams, ServiceOptions?: ServiceOptions) => {
+	const res = await MedicineService.getMedicine(params, ServiceOptions)
+	return res
 }
 
 export const getCategory = async () => {
@@ -22,8 +23,27 @@ export const addMedicine = async (data: MedicineData) => {
 	updateTag("medicine")
 	return res
 }
+
+export const updateMedicine = async (id: string, data: MedicineData) => {
+	const res = await MedicineService.updateMedicine(id, data)
+	updateTag("medicine")
+	return res
+}
+
+export const stockUpdateMedicine = async (id: string, quantity: number) => {
+	const res = await MedicineService.updateMedicineStock(id, quantity)
+	updateTag("medicine")
+	return res
+}
+
+
 export const deleteCategory = async (id: string) => {
 	const res = await categoryService.deleteCategory(id)
 	updateTag("categories")
+	return res
+}
+export const deleteMedicine = async (id: string) => {
+	const res = await MedicineService.deleteMedicine(id)
+	updateTag("medicines")
 	return res
 }

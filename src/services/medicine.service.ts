@@ -4,14 +4,14 @@ import { cookies } from "next/headers";
 
 const API_URL = env.NEXT_PUBLIC_BASE_API;
 
-interface GetMedicinePrams {
-	page?: number;
+export interface GetMedicinePrams {
+	page?: string;
 	limit?: number;
-	sellerId: string;
-	categoryId: string;
-	sortBy: string;
-	sortOrder: string;
-	id: string;
+	sellerId?: string;
+	categoryId?: string;
+	sortBy?: string;
+	sortOrder?: string;
+	id?: string;
 }
 
 export interface MedicineData {
@@ -82,8 +82,10 @@ export const MedicineService = {
 			}
 
 			config.next = {
-				...config.next, tags: ["categories"]
+				...config.next, tags: ["medicines"]
 			}
+
+			// console.log(url.toString())
 
 			const res = await fetch(url.toString(), config)
 
@@ -105,5 +107,96 @@ export const MedicineService = {
 		} catch (err) {
 			return { data: null, error: { message: "something went wrong!" } }
 		}
-	}
+	},
+
+	deleteMedicine: async function (id: string) {
+		try {
+			const cookieStore = await cookies()
+
+			const res = await fetch(`${API_URL}/seller/medicines/${id}`, {
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+					Cookie: cookieStore.toString(),
+				},
+
+			})
+
+			const data = await res.json()
+
+			if (!data.success) {
+				return {
+					data: null,
+					error: { message: "Error: Deleting Medicne Failed" },
+				}
+			}
+			return { data: data, error: null }
+
+		} catch (err) {
+			return { data: null, error: { message: "something went wrong!" } }
+		}
+
+	},
+
+	updateMedicine: async function (id: string, payload: MedicineData) {
+		try {
+			const cookieStore = await cookies()
+
+			const res = await fetch(`${API_URL}/seller/medicines/${id}`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+					Cookie: cookieStore.toString(),
+				},
+
+				body: JSON.stringify(payload)
+			})
+
+			const data = await res.json()
+
+			if (data.error) {
+				return {
+					data: null,
+					error: { message: "Error: Medicine creation Failed" },
+				}
+			}
+			return { data: data, error: null }
+
+		} catch (err) {
+			return { data: null, error: { message: "something went wrong!" } }
+		}
+	},
+
+	updateMedicineStock: async function (id: string, quantity: number) {
+		try {
+			const cookieStore = await cookies()
+
+			const res = await fetch(`${API_URL}/seller/medicines/${id}`, {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+					Cookie: cookieStore.toString(),
+				},
+
+				body: JSON.stringify({quantity})
+			})
+
+			const data = await res.json()
+
+			if (data.error) {
+				return {
+					data: null,
+					error: { message: "Error: Medicine creation Failed" },
+				}
+			}
+			return { data: data, error: null }
+
+		} catch (err) {
+			return { data: null, error: { message: "something went wrong!" } }
+		}
+	},
+
+
+
+
 }

@@ -20,6 +20,20 @@ export interface MedicineCardType {
 	};
 }
 
+export type Medicine = {
+	id?: string;
+	title: string;
+	generic: string;
+	manufacturer: string;
+	categoryId: string;
+	price: number;
+	availableQuantity: number;
+	details: string;
+	isAvailable: boolean;
+	thumbnail?: string;
+};
+
+
 export interface CategoryResType {
 	id: string,
 	adminId: string,
@@ -27,3 +41,10 @@ export interface CategoryResType {
 	createdAt: string,
 	updatedAt: string
 }
+
+export type ShopFilters = {
+	categoryId?: string;
+	manufacturer?: string;
+	minPrice?: number;
+	maxPrice?: number;
+};
