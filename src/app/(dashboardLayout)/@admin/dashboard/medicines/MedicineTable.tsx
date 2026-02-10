@@ -1,0 +1,53 @@
+"use client";
+import { deleteMedicine, stockUpdateMedicine } from "@/actions/action";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { ArrowRight, Pencil, Trash } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
+
+type MedicineTableProps = {
+  data: any;
+};
+
+export function MedicineTableAdmin({ data }: MedicineTableProps) {
+  return (
+    <Table>
+      <TableHeader className="bg-gray-300">
+        <TableRow>
+          <TableHead>SN</TableHead>
+          <TableHead>Title</TableHead>
+          <TableHead>Manufacturer</TableHead>
+          <TableHead>Category</TableHead>
+          <TableHead>Generic</TableHead>
+          <TableHead>Price</TableHead>
+          <TableHead>Quantity</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {data?.data?.map((med, index) => (
+          <TableRow key={med.id}>
+            <TableCell className="font-medium">{index + 1}</TableCell>
+            <TableCell className="font-medium">{med.title}</TableCell>
+            <TableCell className="font-medium">{med.manufacturer}</TableCell>
+            <TableCell className="font-medium">{med.category.title}</TableCell>
+            <TableCell className="font-medium">{med.generic}</TableCell>
+            <TableCell className="font-medium">{med.price}</TableCell>
+            <TableCell className="font-medium ">
+              {med.availableQuantity}
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+}

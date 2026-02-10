@@ -17,7 +17,7 @@ import { toast } from "sonner";
 
 type MedicineTableProps = {
   data: any;
-  onEdit: (medicine: any) => void;
+  onEdit?: (medicine: any) => void;
 };
 
 export function MedicineTable({ data, onEdit }: MedicineTableProps) {
