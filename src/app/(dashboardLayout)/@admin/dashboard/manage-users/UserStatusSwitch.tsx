@@ -33,9 +33,12 @@ export function UserStatusSwitch({ id, status }: UserStatusSwitchProps) {
     });
   };
 
-  return <Switch
-        checked={checked}
-        onCheckedChange={handleToggle}
-        disabled={isPending} 
-      />;
+  return (
+    <Switch
+      className="cursor-pointer"
+      checked={checked}
+      onCheckedChange={handleToggle}
+      disabled={isPending}
+    />
+  );
 }

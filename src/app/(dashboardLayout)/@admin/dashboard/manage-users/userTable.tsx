@@ -8,13 +8,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Check, X } from "lucide-react";
+import { Check, Pencil, X } from "lucide-react";
 import { formatDate } from "@/constants/formatDate";
 import { Switch } from "@/components/ui/switch";
 import { UserStatusSwitch } from "./UserStatusSwitch";
+import { Button } from "@/components/ui/button";
+import { UpdateUserRoleModal } from "./UpdateUserRoleModal";
+import { useState } from "react";
 
 const UserTable = ({ data: items }) => {
-  const handleChange = () => {};
+  const [open, setOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<any>(null);
+  const handleEdit = (user) => {
+    setOpen(true);
+    setSelectedUser(user);
+  };
 
   return (
     <div className="w-full">
@@ -26,7 +34,7 @@ const UserTable = ({ data: items }) => {
               <TableHead>Email</TableHead>
               <TableHead>is Verified</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead>Role</TableHead>
+              <TableHead className="text-center">Role</TableHead>
               <TableHead>Created On</TableHead>
             </TableRow>
           </TableHeader>
@@ -50,13 +58,31 @@ const UserTable = ({ data: items }) => {
                   {" "}
                   <UserStatusSwitch id={item.id} status={item.status} />
                 </TableCell>
-                <TableCell>{item.role}</TableCell>
+                <TableCell className="flex items-center justify-around gap-2">
+                  {item.role}
+                  <Button
+                    variant={"outline"}
+                    className="cursor-pointer"
+                    onClick={() => {
+                      handleEdit(item);
+                    }}
+                  >
+                    {" "}
+                    <Pencil />
+                  </Button>
+                </TableCell>
                 <TableCell>{formatDate(item.createdAt)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </div>
+      <UpdateUserRoleModal
+        setOpen={setOpen}
+        open={open}
+        onOpenChange={setOpen}
+        user={selectedUser}
+      />
     </div>
   );
 };

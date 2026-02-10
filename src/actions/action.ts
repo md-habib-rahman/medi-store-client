@@ -1,8 +1,8 @@
 "use server"
 import { catData, categoryService, ServiceOptions } from "@/services/category.service"
 import { GetMedicinePrams, MedicineData, MedicineService } from "@/services/medicine.service"
-import { updateUserStatus } from "@/services/user.service"
-import { userStatusPayload } from "@/types/user.types"
+import { updateUserRole, updateUserStatus } from "@/services/user.service"
+import { userRolePayload, userStatusPayload } from "@/types/user.types"
 import { updateTag } from "next/cache"
 
 export const getMedicine = async (params?: GetMedicinePrams, ServiceOptions?: ServiceOptions) => {
@@ -40,6 +40,11 @@ export const stockUpdateMedicine = async (id: string, quantity: number) => {
 
 export const userUpdateStatus = async (id: string, payload: userStatusPayload) => {
 	const res = await updateUserStatus(id, payload)
+	return res
+}
+
+export const userUpdateRole = async (id: string, payload: userRolePayload) => {
+	const res = await updateUserRole(id, payload)
 	return res
 }
 

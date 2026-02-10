@@ -1,7 +1,7 @@
 "use server"
 import { authClient } from "@/lib/auth-client"
 import { LoginPayload } from "@/types/login.types"
-import { userStatusPayload } from "@/types/user.types"
+import { userRolePayload, userStatusPayload } from "@/types/user.types"
 import { cookies, headers } from "next/headers"
 
 
@@ -102,7 +102,36 @@ export const updateUserStatus = async (id: string, payload: userStatusPayload) =
 	}
 }
 
+export const updateUserRole = async (id: string, payload: userRolePayload) => {
+	try {
+		console.log(JSON.stringify(payload))
+		const cookieStore = await cookies()
 
+		const res = await fetch(`${API_URL}/admin/users/role/${id}`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+				Cookie: cookieStore.toString()
+			},
+			cache: "no-store",
+			body: JSON.stringify(payload)
+		})
+		const data = await res.json()
+		// console.log(data)
+		// if (!success) {
+		// 	return {
+		// 		data: null, error: { message: "Something went wrong!" }
+		// 	}
+		// }
+		return { success: true, error: null }
+
+	} catch (err) {
+		console.error(err)
+		return {
+			data: null, error: { message: "Something went wrong!" }
+		}
+	}
+}
 
 export const logIn = async (data: LoginPayload) => {
 	try {
