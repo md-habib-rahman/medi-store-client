@@ -13,11 +13,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MedicineCardType } from "@/types/medicine.types";
 
+
 export default function MedicineDetail({
   medicine,
 }: {
   medicine: MedicineCardType;
 }) {
+
+
   //   const [quantity, setQuantity] = useState(1);
 
   const primaryBlue = "#2F91CC";

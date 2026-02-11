@@ -9,6 +9,7 @@ const API_URL = process.env.NEXT_PUBLIC_BASE_API
 
 interface UserParams {
 	page?: string;
+
 }
 
 
@@ -65,6 +66,20 @@ export const getAllUsers = async (params?: UserParams) => {
 		const { data } = await res.json()
 
 		return { data: data, error: null }
+
+	} catch (err) {
+		return { data: null, error: { message: "something went wrong!" } }
+	}
+}
+
+export const getSellerInfo = async (sellerId: string) => {
+	try {
+		// console.log(`${API_URL}/seller/:${sellerId}`)
+		const res = await fetch(`${API_URL}/seller/${sellerId}`)
+		const result = await res.json()
+		// console.log(result)
+		return result
+
 
 	} catch (err) {
 		return { data: null, error: { message: "something went wrong!" } }

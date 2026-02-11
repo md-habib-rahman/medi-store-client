@@ -10,10 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ArrowRight, Pencil, Trash } from "lucide-react";
-import { useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { toast } from "sonner";
+import { MedicineCardType } from "@/types/medicine.types";
 
 type MedicineTableProps = {
   data: any;
@@ -34,7 +31,7 @@ export function MedicineTableAdmin({ data }: MedicineTableProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data?.data?.map((med, index) => (
+        {data?.data?.map((med: MedicineCardType, index: number) => (
           <TableRow key={med.id}>
             <TableCell className="font-medium">{index + 1}</TableCell>
             <TableCell className="font-medium">{med.title}</TableCell>

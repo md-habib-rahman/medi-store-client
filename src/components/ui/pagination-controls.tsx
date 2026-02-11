@@ -28,8 +28,9 @@ interface PaginationControlsProps {
 }
 
 export default function PaginationControls({ meta }: PaginationControlsProps) {
+	
   const { limit, page: currentPage, total, totalPages } = meta;
-  console.log({ limit, page: currentPage, total, totalPages });
+//   console.log({ limit, page: currentPage, total, totalPages });
   const searchParams = useSearchParams();
   const router = useRouter();
 

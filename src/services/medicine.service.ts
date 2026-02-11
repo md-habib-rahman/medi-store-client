@@ -12,6 +12,8 @@ export interface GetMedicinePrams {
 	sortBy?: string;
 	sortOrder?: string;
 	id?: string;
+	manufacturer?: string;
+	maxprice?: string
 }
 
 export interface MedicineData {
@@ -85,7 +87,48 @@ export const MedicineService = {
 				...config.next, tags: ["medicines"]
 			}
 
-			// console.log(url.toString())
+			console.log(url.toString())
+
+			const res = await fetch(url.toString(), config)
+
+			const data = await res.json()
+			return data
+		} catch (err) {
+			return { data: null, error: { error: err, message: "something went wrong!" } }
+		}
+	},
+
+	getSellerMedicine: async function (params?: GetMedicinePrams, options?: ServiceOptions) {
+		try {
+
+			const sellerId = params?.sellerId
+			const url = new URL(`${API_URL}/seller/${sellerId}/all-medicine`)
+
+			delete params?.sellerId
+
+			if (params) {
+				Object.entries(params).forEach(([key, value]) => {
+					if (value !== undefined && value !== null && value !== "") {
+						url.searchParams.append(key, value)
+					}
+				})
+			}
+
+			const config: RequestInit = {}
+
+			if (options?.cache) {
+				config.cache = options.cache
+			}
+
+			if (options?.revalidate) {
+				config.next = { revalidate: options.revalidate }
+			}
+
+			config.next = {
+				...config.next, tags: ["medicines"]
+			}
+
+			console.log(url.toString())
 
 			const res = await fetch(url.toString(), config)
 
@@ -178,7 +221,7 @@ export const MedicineService = {
 					Cookie: cookieStore.toString(),
 				},
 
-				body: JSON.stringify({quantity})
+				body: JSON.stringify({ quantity })
 			})
 
 			const data = await res.json()

@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { MedicineCardType } from "@/types/medicine.types";
 import { ArrowRight, Pencil, Trash } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -17,7 +18,7 @@ import { toast } from "sonner";
 
 type MedicineTableProps = {
   data: any;
-  onEdit?: (medicine: any) => void;
+  onEdit: (medicine: any) => void;
 };
 
 export function MedicineTable({ data, onEdit }: MedicineTableProps) {
@@ -68,7 +69,7 @@ export function MedicineTable({ data, onEdit }: MedicineTableProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data?.data?.map((med, index) => (
+        {data?.data?.map((med: MedicineCardType, index: number) => (
           <TableRow key={med.id}>
             <TableCell className="font-medium">{index + 1}</TableCell>
             <TableCell className="font-medium">{med.title}</TableCell>
@@ -77,7 +78,6 @@ export function MedicineTable({ data, onEdit }: MedicineTableProps) {
             <TableCell className="font-medium">{med.generic}</TableCell>
             <TableCell className="font-medium">{med.price}</TableCell>
             <TableCell className="font-medium flex items-center justify-center gap-1">
-             
               <Input
                 type="number"
                 name="med_price"
