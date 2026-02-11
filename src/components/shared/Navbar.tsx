@@ -2,7 +2,16 @@
 
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { LogOut, Menu, CircleX, LayoutDashboard } from "lucide-react";
+import {
+  LogOut,
+  Menu,
+  CircleX,
+  LayoutDashboard,
+  ShoppingCart,
+  Ghost,
+  Trash,
+  X,
+} from "lucide-react";
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -19,10 +28,12 @@ import { getSession, logOut } from "@/services/user.service";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
+import { getCart, removeFromCart } from "@/services/cart.service";
 
 export default function Navbar({ session }) {
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [cart, setCart] = useState<CartItem[]>([]);
 
   const router = useRouter();
 
@@ -35,6 +46,23 @@ export default function Navbar({ session }) {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isMegaMenuOpen]);
+
+  useEffect(() => {
+    setCart(getCart());
+  }, []);
+
+  const handleRemoveCartItem = (medicineId: string) => {
+    setCart((prev) => {
+      const updated = prev.filter((item) => item.medicineId !== medicineId);
+      setCart(updated);
+      return updated;
+    });
+  };
+
+  const handleClearCart = () => {
+    setCart([]);
+    localStorage.removeItem("rumedi_cart");
+  };
 
   const handleLogout = async () => {
     try {
@@ -102,6 +130,69 @@ export default function Navbar({ session }) {
 
           {/* Right Side Navigation */}
           <nav className="flex items-center gap-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <ShoppingCart className="cursor-pointer" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                {cart.length === 0 ? (
+                  <DropdownMenuItem>Nothing in the cart</DropdownMenuItem>
+                ) : (
+                  cart.map((item) => (
+                    <DropdownMenuItem className="flex items-start gap-3 p-3 cursor-default focus:bg-transparent">
+                      {/* Thumbnail */}
+                      <img
+                        src={item.thumbnail}
+                        alt={item.title}
+                        className="h-12 w-12 rounded-md object-cover border"
+                      />
+
+                      {/* Content */}
+                      <div className="flex-1 space-y-1">
+                        <p className="text-sm font-medium leading-tight line-clamp-2">
+                          {item.title}
+                        </p>
+
+                        <div className="flex items-center justify-between text-xs text-muted-foreground">
+                          <span>
+                            {item.price} × {item.quantity}
+                          </span>
+                          <span className="font-semibold text-foreground">
+                            {item.price * item.quantity}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Remove button */}
+                      <div
+                        className="text-muted-foreground cursor-pointer hover:text-destructive transition"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleRemoveCartItem(item.medicineId);
+                        }}
+                      >
+                        <X />
+                      </div>
+                    </DropdownMenuItem>
+                  ))
+                )}
+                <DropdownMenuSeparator />
+                {cart.length !== 0 && (
+                  <DropdownMenuItem
+                    className="text-red-500 cursor-pointer focus:bg-red-50"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleClearCart();
+                    }}
+                  >
+                    <Trash />
+                    Clear Cart
+                  </DropdownMenuItem>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
             {session ? (
               <div>
                 <DropdownMenu>
@@ -124,16 +215,12 @@ export default function Navbar({ session }) {
                     <DropdownMenuItem>
                       <Link href="/delivery">Delivery Address</Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link href="/wishlist">Wishlist</Link>
-                    </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem
-                      className=" cursor-pointer focus:bg-red-50"
-                      onClick={handleLogout}
-                    >
-                      <LayoutDashboard className="mr-2 h-4 w-4" />
-                      <span>Dashboard</span>
+                    <DropdownMenuItem className=" cursor-pointer focus:bg-red-50">
+                      <Link href={"/dashboard"} className="flex items-center">
+                        <LayoutDashboard className="mr-2 h-4 w-4" />
+                        <span>Dashboard</span>
+                      </Link>
                     </DropdownMenuItem>
 
                     <DropdownMenuSeparator />

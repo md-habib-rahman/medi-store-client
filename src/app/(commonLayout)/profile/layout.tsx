@@ -1,5 +1,5 @@
 "use client";
-import  React, { useState } from "react";
+import React, { useState } from "react";
 import {
   Home,
   Package,
@@ -16,9 +16,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-export default function Page({children}:{children:React.ReactNode}) {
+export default function Page({ children }: { children: React.ReactNode }) {
   const [activeTab, setActiveTab] = useState("account");
-  
+
   // Order Details Data
   const orders = [
     {
@@ -99,7 +99,7 @@ export default function Page({children}:{children:React.ReactNode}) {
       stock: "In Stock",
       rating: 4.7,
     },
-  ]
+  ];
 
   // Delivery Addresses Data
   const addresses = [
@@ -135,7 +135,8 @@ export default function Page({children}:{children:React.ReactNode}) {
       zip: "4000",
       phone: "+880 1234 567 892",
       isDefault: false,
-    }]
+    },
+  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -207,7 +208,7 @@ export default function Page({children}:{children:React.ReactNode}) {
 
           {/* Main Content Area */}
           <div className="lg:col-span-3">
-			{children}
+            {children}
             {/* Account Information Tab */}
             {activeTab === "account" && (
               <div className="bg-white rounded-lg shadow-sm p-6">
@@ -239,7 +240,6 @@ export default function Page({children}:{children:React.ReactNode}) {
                         name="name"
                         type="text"
                         placeholder="Your Name"
-                        
                         className="w-full"
                       />
                     </div>
@@ -258,7 +258,6 @@ export default function Page({children}:{children:React.ReactNode}) {
                         name="email"
                         type="email"
                         placeholder="Your email"
-                        
                         className="w-full"
                       />
                     </div>
@@ -295,7 +294,6 @@ export default function Page({children}:{children:React.ReactNode}) {
                           name="phone"
                           type="tel"
                           placeholder="+880"
-                          
                           className="rounded-l-none flex-1"
                         />
                       </div>
@@ -459,11 +457,7 @@ export default function Page({children}:{children:React.ReactNode}) {
                             >
                               Add to Cart
                             </Button>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                           
-                            >
+                            <Button size="sm" variant="outline">
                               <Trash2 className="w-4 h-4" />
                             </Button>
                           </div>
@@ -529,18 +523,10 @@ export default function Page({children}:{children:React.ReactNode}) {
                           </Button>
                           {!address.isDefault && (
                             <>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                
-                              >
+                              <Button variant="outline" size="sm">
                                 Set Default
                               </Button>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                               
-                              >
+                              <Button variant="outline" size="sm">
                                 <Trash2 className="w-4 h-4 mr-1" />
                                 Delete
                               </Button>

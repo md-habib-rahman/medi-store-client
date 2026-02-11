@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 
 import { Price, PriceValue } from "@/components/price";
@@ -13,8 +14,32 @@ import {
 import { MedicineCardType } from "@/types/medicine.types";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { ShoppingCart } from "lucide-react";
+import { addToCart } from "@/services/cart.service";
+import { toast } from "sonner";
+import { usePathname, useRouter } from "next/navigation";
+
 
 const MedicineCard = ({ medicine }: MedicineCardType) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const handleAddToCart = (medicine) => {
+    const toastId = toast.loading("Adding to Cart....");
+    addToCart({
+      medicineId: medicine.id,
+      title: medicine.title,
+      price: medicine.price,
+      quantity: 1,
+      sellerId: medicine.sellerId,
+      thumbnail: medicine.thumbnail,
+    });
+	router.refresh();
+	console.log(pathname)
+    router.push(pathname);
+    
+    toast.success("Cart Updated", { id: toastId });
+  };
+
   return (
     <Card className="h-full overflow-hidden p-0">
       <CardHeader className="relative block p-0">
@@ -26,8 +51,16 @@ const MedicineCard = ({ medicine }: MedicineCardType) => {
           />
         </AspectRatio>
 
-        <Badge className="absolute start-4 top-4">{medicine.generic}</Badge>
-        <Badge className="absolute end-4 top-4">
+        <Badge
+          variant={"rumedi_primary_badge"}
+          className="absolute start-4 top-4"
+        >
+          {medicine.generic}
+        </Badge>
+        <Badge
+          variant={"rumedi_secondary_badge"}
+          className="absolute end-4 top-4"
+        >
           {medicine.category.title}
         </Badge>
       </CardHeader>
@@ -36,7 +69,7 @@ const MedicineCard = ({ medicine }: MedicineCardType) => {
           href={`/shops/medicine/${medicine.id}`}
           className={cn("block max-w-md transition-opacity hover:opacity-80")}
         >
-          <CardTitle className="text-xl font-semibold">
+          <CardTitle className="text-xl font-semibold hover:underline">
             {medicine.title}
           </CardTitle>
         </Link>
@@ -50,8 +83,16 @@ const MedicineCard = ({ medicine }: MedicineCardType) => {
           <PriceValue price={medicine.price} />
         </Price>
         <div className="flex justify-between gap-2">
-          <Button>Add to Cart</Button>
-          <Link href={`/seller/${medicine.sellerId}`}><Button variant={"outline"}>Seller's Page</Button></Link>
+          <Button
+            variant={"rumedi_primary"}
+            onClick={() => handleAddToCart(medicine)}
+          >
+            <ShoppingCart />
+            Add to Cart
+          </Button>
+          <Link href={`/seller/${medicine.sellerId}`}>
+            <Button variant={"rumedi_secondary_outline"}>Seller's Page</Button>
+          </Link>
         </div>
       </div>
     </Card>
