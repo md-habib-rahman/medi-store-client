@@ -207,13 +207,10 @@ export default function Navbar({ session }) {
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
-                      <Link href="/profile">Profile</Link>
+                      <Link href="/profile/account-information">Profile</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                      <Link href="/orders-details">Order Details</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link href="/delivery">Delivery Address</Link>
+                      <Link href="/profile/order-details">Order Details</Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem className=" cursor-pointer focus:bg-red-50">

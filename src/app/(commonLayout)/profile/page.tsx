@@ -1,7 +1,7 @@
-
+import { redirect } from "next/navigation";
 
 const page = () => {
-	return null
+  return redirect("/profile/account-information");
 };
 
 export default page;

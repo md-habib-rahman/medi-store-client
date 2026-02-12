@@ -1,7 +1,7 @@
 "use server"
 import { authClient } from "@/lib/auth-client"
 import { LoginPayload } from "@/types/login.types"
-import { userRolePayload, userStatusPayload } from "@/types/user.types"
+import { updateUserInfoPayload, userImagePayload, userRolePayload, userStatusPayload } from "@/types/user.types"
 import { cookies, headers } from "next/headers"
 
 
@@ -30,7 +30,7 @@ export const getSession = async () => {
 		// })
 
 		const session = await res.json()
-		console.log(session)
+		// console.log(session)
 		return { data: session, error: null }
 
 	} catch (err) {
@@ -148,6 +148,69 @@ export const updateUserRole = async (id: string, payload: userRolePayload) => {
 	}
 }
 
+export const updateUserImage = async (id: string, payload: userImagePayload) => {
+	try {
+
+		const cookieStore = await cookies()
+
+		const res = await fetch(`${API_URL}/user/updateImage/${id}`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+				Cookie: cookieStore.toString()
+			},
+			cache: "no-store",
+			body: JSON.stringify(payload)
+		})
+		const data = await res.json()
+		console.log(data)
+		// if (!success) {
+		// 	return {
+		// 		data: null, error: { message: "Something went wrong!" }
+		// 	}
+		// }
+		return { success: true, error: null }
+
+	} catch (err) {
+		console.error(err)
+		return {
+			data: null, error: { message: "Something went wrong!" }
+		}
+	}
+}
+
+export const updateUserInfo = async (id: string, payload: updateUserInfoPayload) => {
+	try {
+
+
+		const cookieStore = await cookies()
+
+		const res = await fetch(`${API_URL}/user/updateUser/${id}`, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+				Cookie: cookieStore.toString()
+			},
+			cache: "no-store",
+			body: JSON.stringify(payload)
+		})
+		const data = await res.json()
+		console.log(data)
+		// if (!success) {
+		// 	return {
+		// 		data: null, error: { message: "Something went wrong!" }
+		// 	}
+		// }
+		return { success: true, error: null }
+
+	} catch (err) {
+		console.error(err)
+		return {
+			data: null, error: { message: "Something went wrong!" }
+		}
+	}
+}
+
 export const logIn = async (data: LoginPayload) => {
 	try {
 		// const res = await fetch(`${AUTH_API}/auth/sign-in/email`, {
@@ -171,6 +234,21 @@ export const logIn = async (data: LoginPayload) => {
 		return null;
 	}
 
+}
+
+export const getCurrentUserService = async () => {
+	// const cookieStore = await cookies()
+
+	// const res = await fetch(`${API_URL}/auth/get-session`, {
+	// 	headers: {
+	// 		Cookie: cookieStore.toString()
+	// 	},
+	// 	cache: "no-store"
+	// })
+
+	const res = await authClient.accountInfo()
+	console.log(res)
+	return res
 }
 
 export const logOut = async () => {

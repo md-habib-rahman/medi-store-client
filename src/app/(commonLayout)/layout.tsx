@@ -7,7 +7,7 @@ const CommonLayout = async ({ children }: { children: React.ReactNode }) => {
   const { data } = await getSession();
   const session = data?.session;
 
-  //   console.log(data);
+    console.log(data);
   //   const logout=()=>{
 
   //   }

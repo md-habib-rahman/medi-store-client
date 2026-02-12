@@ -1,12 +1,17 @@
 "use server"
 import { catData, categoryService, ServiceOptions } from "@/services/category.service"
 import { GetMedicinePrams, MedicineData, MedicineService } from "@/services/medicine.service"
-import { updateUserRole, updateUserStatus } from "@/services/user.service"
+import { updateUserRole, updateUserStatus, getCurrentUserService } from "@/services/user.service"
 import { userRolePayload, userStatusPayload } from "@/types/user.types"
 import { updateTag } from "next/cache"
 
 export const getMedicine = async (params?: GetMedicinePrams, ServiceOptions?: ServiceOptions) => {
 	const res = await MedicineService.getMedicine(params, ServiceOptions)
+	return res
+}
+
+export const getCurrentUser = async () => {
+	const res = await getCurrentUserService()
 	return res
 }
 
