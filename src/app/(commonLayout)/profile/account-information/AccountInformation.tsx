@@ -24,8 +24,6 @@ type User = {
 };
 
 export default function AccountInformation({ user }: { user: User }) {
-  const [isPending, startTransition] = useTransition();
-
   //   const [loading, setLoading] = useState(true);
 
   const [formData, setFormData] = useState({
@@ -65,12 +63,9 @@ export default function AccountInformation({ user }: { user: User }) {
   };
 
   const handleSubmit = async () => {
-    // console.log(formData);
-
     try {
-      
       const res = await updateUserInfo(user.id, formData);
-      console.log(res);
+      //   console.log(res);
       if (res.success) {
         toast.success("Profile updated successfully");
       } else {
@@ -95,12 +90,8 @@ export default function AccountInformation({ user }: { user: User }) {
             Update your photo and personal information here
           </p>
         </div>
-        <Button
-          onClick={handleSubmit}
-          disabled={isPending}
-          variant="rumedi_primary"
-        >
-          {isPending ? "Saving..." : "Save Changes"}
+        <Button onClick={handleSubmit} variant="rumedi_primary">
+          Save Changes
         </Button>
       </div>
 

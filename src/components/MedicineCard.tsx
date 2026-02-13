@@ -33,9 +33,10 @@ const MedicineCard = ({ medicine }: MedicineCardType) => {
       sellerId: medicine.sellerId,
       thumbnail: medicine.thumbnail,
     });
-	router.refresh();
-	console.log(pathname)
-    router.push(pathname);
+	window.location.reload()
+	// router.refresh();
+	// console.log(pathname)
+    // router.push(pathname);
     
     toast.success("Cart Updated", { id: toastId });
   };

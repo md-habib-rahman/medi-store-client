@@ -11,6 +11,7 @@ import {
   Ghost,
   Trash,
   X,
+  ScanBarcode,
 } from "lucide-react";
 import Link from "next/link";
 import {
@@ -132,7 +133,17 @@ export default function Navbar({ session }) {
           <nav className="flex items-center gap-2">
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <ShoppingCart className="cursor-pointer" />
+                {cart.length > 0 ? (
+                  <img
+                    className="cursor-pointer"
+                    width="30"
+                    height="30"
+                    src="https://img.icons8.com/fluency-systems-regular/48/buy--v2.png"
+                    alt="items in cart"
+                  />
+                ) : (
+                  <ShoppingCart className="cursor-pointer" />
+                )}
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 {cart.length === 0 ? (
@@ -177,19 +188,30 @@ export default function Navbar({ session }) {
                     </DropdownMenuItem>
                   ))
                 )}
+
                 <DropdownMenuSeparator />
                 {cart.length !== 0 && (
-                  <DropdownMenuItem
-                    className="text-red-500 cursor-pointer focus:bg-red-50"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      handleClearCart();
-                    }}
-                  >
-                    <Trash />
-                    Clear Cart
-                  </DropdownMenuItem>
+                  <>
+                    <Link href="/profile/cart" className="cursor-pointer">
+                      {" "}
+                      <DropdownMenuItem className="text-[#2F91CC] cursor-pointer focus:bg-red-50">
+                        <ScanBarcode />
+                        Proceed to checkout
+                      </DropdownMenuItem>
+                    </Link>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      className="text-red-500 cursor-pointer focus:bg-red-50"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleClearCart();
+                      }}
+                    >
+                      <Trash />
+                      Clear Cart
+                    </DropdownMenuItem>
+                  </>
                 )}
               </DropdownMenuContent>
             </DropdownMenu>

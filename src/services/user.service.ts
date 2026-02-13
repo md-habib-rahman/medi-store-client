@@ -181,8 +181,6 @@ export const updateUserImage = async (id: string, payload: userImagePayload) => 
 
 export const updateUserInfo = async (id: string, payload: updateUserInfoPayload) => {
 	try {
-
-
 		const cookieStore = await cookies()
 
 		const res = await fetch(`${API_URL}/user/updateUser/${id}`, {
@@ -195,7 +193,7 @@ export const updateUserInfo = async (id: string, payload: updateUserInfoPayload)
 			body: JSON.stringify(payload)
 		})
 		const data = await res.json()
-		console.log(data)
+		// console.log(data)
 		// if (!success) {
 		// 	return {
 		// 		data: null, error: { message: "Something went wrong!" }

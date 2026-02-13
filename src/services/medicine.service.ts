@@ -100,7 +100,6 @@ export const MedicineService = {
 
 	getSellerMedicine: async function (params?: GetMedicinePrams, options?: ServiceOptions) {
 		try {
-
 			const sellerId = params?.sellerId
 			const url = new URL(`${API_URL}/seller/${sellerId}/all-medicine`)
 
@@ -113,7 +112,6 @@ export const MedicineService = {
 					}
 				})
 			}
-
 			const config: RequestInit = {}
 
 			if (options?.cache) {
