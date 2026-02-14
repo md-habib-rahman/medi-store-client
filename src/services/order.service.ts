@@ -20,6 +20,14 @@ export interface updateOrderStatusPayload {
 	orderStatus: string
 }
 
+export interface ReviewPayload {
+
+	orderId: string;
+	comment: string;
+	status: string;
+
+}
+
 
 export const orderService = {
 	postOrders: async function (payload: OrderPayload) {
@@ -47,6 +55,37 @@ export const orderService = {
 				}
 			}
 			return { success: true, data: data, error: null }
+
+		} catch (err) {
+			return { data: null, error: { message: "something went wrong!" } }
+		}
+	},
+
+	postReview: async function (payload: ReviewPayload) {
+		try {
+
+			// console.log(payload)
+			const cookieStore = await cookies()
+
+			const res = await fetch(`${API_URL}/orders/review`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Cookie: cookieStore.toString(),
+				},
+
+				body: JSON.stringify(payload)
+			})
+
+			const data = await res.json()
+			console.log(data)
+			if (!data.success) {
+				return {
+					data: null,
+					error: { message: "Error: Order review updating failed" },
+				}
+			}
+			return data
 
 		} catch (err) {
 			return { data: null, error: { message: "something went wrong!" } }
@@ -137,7 +176,7 @@ export const orderService = {
 					"Content-Type": "application/json",
 					Cookie: cookieStore.toString(),
 				},
-			};		
+			};
 
 			const res = await fetch(url.toString(), config)
 

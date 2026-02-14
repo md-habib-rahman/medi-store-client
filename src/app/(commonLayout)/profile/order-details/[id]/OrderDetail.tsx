@@ -16,6 +16,7 @@ import { GetOrdersParams } from "@/services/order.service";
 import { colorConstant } from "@/constants/color";
 import { Order } from "@/types/order.typs";
 import { formatDate } from "@/constants/formatDate";
+import { getStatusColor } from "../page";
 
 export function OrderDetail({ order }: { order: Order }) {
   return (
@@ -25,7 +26,7 @@ export function OrderDetail({ order }: { order: Order }) {
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             <span>Order Details</span>
-            <Badge style={{ backgroundColor: colorConstant.primary }}>
+            <Badge className={getStatusColor(order.orderStatus)}>
               {order.orderStatus}
             </Badge>
           </CardTitle>
@@ -108,7 +109,9 @@ export function OrderDetail({ order }: { order: Order }) {
 
           <div className="flex justify-end gap-6 text-lg font-semibold">
             <span>Total</span>
-            <span style={{ color: colorConstant.secondary }}>${order.totalPrice}</span>
+            <span style={{ color: colorConstant.secondary }}>
+              ${order.totalPrice}
+            </span>
           </div>
         </CardContent>
       </Card>
