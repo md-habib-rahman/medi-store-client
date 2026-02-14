@@ -1,11 +1,13 @@
 "use server"
+
 import { catData, categoryService, ServiceOptions } from "@/services/category.service"
 import { GetMedicinePrams, MedicineData, MedicineService } from "@/services/medicine.service"
-import { GetOrdersParams, orderService } from "@/services/order.service"
+import { GetOrdersParams, orderService, updateOrderStatusPayload } from "@/services/order.service"
 import { updateUserRole, updateUserStatus, getCurrentUserService } from "@/services/user.service"
 import { OrderPayload } from "@/types/order.typs"
 import { userRolePayload, userStatusPayload } from "@/types/user.types"
 import { updateTag } from "next/cache"
+
 
 export const getMedicine = async (params?: GetMedicinePrams, ServiceOptions?: ServiceOptions) => {
 	const res = await MedicineService.getMedicine(params, ServiceOptions)
@@ -14,6 +16,17 @@ export const getMedicine = async (params?: GetMedicinePrams, ServiceOptions?: Se
 
 export const getOrders = async (params?: GetOrdersParams, ServiceOptions?: ServiceOptions) => {
 	const res = await orderService.getOrders(params, ServiceOptions)
+	return res
+}
+
+export const updateOrderStatus = async (id: string, payload: updateOrderStatusPayload) => {
+	const res = await orderService.updateOrderStatus(id, payload)
+	// console.log(res)
+	return res
+}
+
+export const getSingleOrder = async (id: string) => {
+	const res = await orderService.getSingleOrder(id)
 	return res
 }
 

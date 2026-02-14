@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import PaginationControls from "@/components/ui/pagination-controls";
 import { formatDate } from "@/constants/formatDate";
 import { Calendar, Search } from "lucide-react";
+import Link from "next/link";
 
 // const orders = [
 //   {
@@ -45,16 +46,18 @@ import { Calendar, Search } from "lucide-react";
 //   },
 // ];
 
-const getStatusColor = (status: string) => {
+export const getStatusColor = (status: string) => {
   switch (status) {
-    case "Delivered":
+    case "DELIVERED":
       return "bg-green-100 text-green-800";
-    case "Processing":
+    case "RECEIVED":
       return "bg-blue-100 text-blue-800";
-    case "Shipped":
+    case "SHIPPED":
       return "bg-purple-100 text-purple-800";
-    case "Cancelled":
+    case "CANCELLED":
       return "bg-red-100 text-red-800";
+    case "PENDING":
+      return "bg-[#FA941E]/20 text-[#FA941E]";
     default:
       return "bg-gray-100 text-gray-800";
   }
@@ -88,70 +91,105 @@ async function OrderDetails({
     totalPages: 1,
   };
 
-  console.log(data);
+  //   console.log(data);
   return (
-    <div className="bg-white rounded-lg shadow-sm p-6">
+    <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+      {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-gray-900">Order Details</h1>
+        <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">
+          Order Details
+        </h1>
         <p className="text-sm text-gray-600 mt-1">
           View and track all your orders
         </p>
       </div>
 
+      {/* Search */}
       <div className="mb-6">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-          <Input type="text" placeholder="Search orders..." className="pl-10" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+          <Input
+            type="text"
+            placeholder="Search orders..."
+            className="pl-10 w-full"
+          />
         </div>
       </div>
 
+      {/* Orders */}
       <div className="space-y-4">
         {orders.map((order) => (
           <div
             key={order.id}
             className="border rounded-lg p-4 hover:shadow-md transition-shadow"
           >
-            <div className="flex items-start justify-between mb-3">
-              <div className="flex items-start space-x-4">
+            <div className="flex flex-col md:flex-row lg:items-start justify-between gap-4">
+              {/* Left section */}
+              <div className="flex gap-4">
                 <img
                   src={order.items[0].medicine.thumbnail}
                   alt="Product"
-                  className="w-20 h-20 rounded-md object-cover"
+                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-md object-cover flex-shrink-0"
                 />
-                <div>
-                  <div className="flex items-center space-x-2 mb-1">
-                    <h3 className="font-semibold text-gray-900">{order.id}</h3>
+
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
+                    <h3 className="font-semibold text-gray-900 text-sm sm:text-base truncate max-w-[220px] sm:max-w-none">
+                      {order.id}
+                    </h3>
                     <Badge className={getStatusColor(order.orderStatus)}>
                       {order.orderStatus}
                     </Badge>
                   </div>
-                  <div className="flex items-center text-sm text-gray-600 space-x-4">
+
+                  <div className="flex flex-wrap items-center text-xs sm:text-sm text-gray-600 gap-3">
                     <div className="flex items-center">
                       <Calendar className="w-4 h-4 mr-1" />
                       {formatDate(order.createdAt)}
                     </div>
                     <span>{order.items.length} items</span>
                   </div>
-                  <div className="mt-2 text-sm text-gray-600">
+
+                  <div className="mt-2 text-xs sm:text-sm text-gray-600 line-clamp-2">
                     {order.items.map((item) => (
-                      <span>{item.medicine.title}, </span>
+                      <span key={item.medicine.id}>
+                        {item.medicine.title},{" "}
+                      </span>
                     ))}
                   </div>
                 </div>
               </div>
-              <div className="text-right">
-                <div className="text-lg font-semibold text-gray-900">
+
+              {/* Right section */}
+              <div className="flex flex-col items-center items-end justify-between lg:justify-start gap-3 lg:w-auto">
+                <div className="text-xl sm:text-2xl font-bold text-gray-900">
                   ${order.totalPrice}
                 </div>
-                <Button variant="outline" size="sm" className="mt-2">
-                  View Details
-                </Button>
+
+                {order.orderStatus === "DELIVERED" && (
+                  <Button variant={"rumedi_primary"}>Add Review</Button>
+                )}
+                <Link
+                  href={`/profile/order-details/${order.id}`}
+                  className="w-full sm:w-auto"
+                >
+                  <Button
+                    variant={"rumedi_secondary_outline"}
+                    className="w-full sm:w-auto"
+                  >
+                    View Details
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
         ))}
       </div>
-      <PaginationControls meta={pagination} />
+
+      {/* Pagination */}
+      <div className="mt-6">
+        <PaginationControls meta={pagination} />
+      </div>
     </div>
   );
 }

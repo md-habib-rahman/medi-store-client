@@ -9,6 +9,9 @@ export const sellerRoutes: Route[] = [{
 		}, {
 			title: "Order Management",
 			url: '/dashboard/manage-orders'
+		}, {
+			title: "Log Out",
+			url: '/dashboard/log-out'
 		}
 	]
 

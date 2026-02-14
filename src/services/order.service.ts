@@ -16,6 +16,10 @@ export interface GetOrdersParams {
 	OrderId?: string;
 }
 
+export interface updateOrderStatusPayload {
+	orderStatus: string
+}
+
 
 export const orderService = {
 	postOrders: async function (payload: OrderPayload) {
@@ -92,5 +96,57 @@ export const orderService = {
 		} catch (err) {
 			return { data: null, error: { error: err, message: "something went wrong!" } }
 		}
-	}
+	},
+
+	updateOrderStatus: async function (id: string, payload: updateOrderStatusPayload) {
+		try {
+			const cookieStore = await cookies()
+
+			const res = await fetch(`${API_URL}/seller/orders/${id}`, {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+					Cookie: cookieStore.toString(),
+				},
+
+				body: JSON.stringify(payload)
+			})
+
+			const data = await res.json()
+			console.log(data)
+			if (data.error) {
+				return {
+					data: null,
+					error: { message: "Error: Order Update Failed" },
+				}
+			}
+			return { success: true, data: data, error: null }
+		} catch (err) {
+			return { data: null, error: { message: "something went wrong!" } }
+		}
+	},
+
+	getSingleOrder: async function (id: string) {
+		try {
+			const cookieStore = await cookies()
+			const url = new URL(`${API_URL}/orders/${id}`)
+
+			const config: RequestInit & { next?: any } = {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					Cookie: cookieStore.toString(),
+				},
+			};		
+
+			const res = await fetch(url.toString(), config)
+
+			const data = await res.json()
+			console.log(data)
+			return data
+		} catch (err) {
+			return { data: null, error: { error: err, message: "something went wrong!" } }
+		}
+	},
+
 }
