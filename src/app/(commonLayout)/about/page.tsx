@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import CTASection from "@/components/modules/home/cta";
 import StatsCounter from "@/components/modules/home/StatsCounter";
 
