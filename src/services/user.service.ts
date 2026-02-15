@@ -211,21 +211,21 @@ export const updateUserInfo = async (id: string, payload: updateUserInfoPayload)
 
 export const logIn = async (data: LoginPayload) => {
 	try {
-		// const res = await fetch(`${AUTH_API}/auth/sign-in/email`, {
-		// 	method: "POST",
+		const res = await fetch(`${API_URL}/auth/sign-in/email`, {
+			method: "POST",
 
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 		"X-Requested-With": "XMLHttpRequest",
-		// 	},
-		// 	body: JSON.stringify(data),
-		// 	credentials: "include",
-		// })
+			headers: {
+				"Content-Type": "application/json",
+				"X-Requested-With": "XMLHttpRequest",
+			},
+			body: JSON.stringify(data),
+			credentials: "include",
+		})
 
-		const res = await authClient.signIn.email(data)
+		// const res = await authClient.signIn.email(data)
 
 		console.log(res)
-		return { success: true, data: res.data, error: null }
+		return { success: true, data: res, error: null }
 
 	} catch (err: any) {
 		console.error("Sign-in error:", err);

@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { loginSchema } from "./Form-schema";
 import { authClient } from "@/lib/auth-client";
@@ -32,9 +32,10 @@ const LoginForm = () => {
   const onSubmit = async (data: LoginPayload) => {
     try {
       //   console.log(data);
-      const res = await authClient.signIn.email(data);
+      //   const res = await authClient.signIn.email(data);
+      const res = logIn(data);
       console.log(res);
-      if (res?.data?.user) {
+      if (res?.success) {
         toast.success("Logged in");
         if (redirect) {
           router.push(redirect);
@@ -150,7 +151,11 @@ const LoginForm = () => {
             )}
           />
 
-          <Button variant={"rumedi_primary"} className="w-full mb-3 cursor-pointer" type="submit">
+          <Button
+            variant={"rumedi_primary"}
+            className="w-full mb-3 cursor-pointer"
+            type="submit"
+          >
             {isSubmitting ? "Logging..." : "login"}
           </Button>
           <div className="flex items-center justify-center">
@@ -164,7 +169,10 @@ const LoginForm = () => {
 
           <div className="flex items-center justify-center ">
             <Link href={"/"}>
-              <Button variant={"rumedi_secondary_outline"} className="w-full cursor-pointer">
+              <Button
+                variant={"rumedi_secondary_outline"}
+                className="w-full cursor-pointer"
+              >
                 Back To Home
               </Button>
             </Link>
