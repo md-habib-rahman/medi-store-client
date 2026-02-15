@@ -1,12 +1,18 @@
 import { NextRequest, NextResponse } from "next/server"
 
-import { Roles } from "./constants/roles";
-import { getSession } from "./services/user.service";
+import { Roles } from "./src/constants/roles";
+import { getSession } from "./src/services/user.service";
 
 
 export const proxy = async (req: NextRequest) => {
 
 	const { pathname } = req.nextUrl
+
+	if (pathname.startsWith("/verify-email")) {
+		return NextResponse.next();
+	}
+
+	const sessionToken = req.cookies.get("better-auth.session_token");
 
 	let isAuthenticated = false;
 	let isAdmin = false;
@@ -33,8 +39,6 @@ export const proxy = async (req: NextRequest) => {
 			return NextResponse.redirect(new URL('/login', req.url))
 		}
 	}
-
-	// console.log({ role, isAdmin, isSeller, isCustomer })
 
 	return NextResponse.next()
 }

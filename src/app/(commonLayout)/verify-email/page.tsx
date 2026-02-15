@@ -14,7 +14,11 @@ export default async function VerifyEmailPage({ searchParams }: TokenProps) {
   //   console.log({token});
 
   if (!token) {
-    return <p>Invalid or missing verification token.</p>;
+    return (
+      <div className="min-h-70 flex items-center justify-center">
+        <p>Invalid or missing verification Token</p>
+      </div>
+    );
   }
 
   const result = await authClient.verifyEmail({
@@ -26,7 +30,11 @@ export default async function VerifyEmailPage({ searchParams }: TokenProps) {
   console.log(result);
 
   if (!result?.data?.status) {
-    return <p>Verification failed or token expired.</p>;
+    return (
+      <div className="min-h-70 flex items-center justify-center">
+        <p>Verification failed or token expired.</p>
+      </div>
+    );
   }
 
   return (
