@@ -1,3 +1,4 @@
+'use server'
 import { getOrders } from "@/actions/action";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
