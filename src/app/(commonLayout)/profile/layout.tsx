@@ -1,4 +1,3 @@
-import { authClient } from "@/lib/auth-client";
 import ProfileLayoutClient from "./ProfileLayoutClient";
 import { getSession } from "@/services/user.service";
 

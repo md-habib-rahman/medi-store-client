@@ -1,5 +1,4 @@
 "use client";
-import { getStatusColor } from "@/app/(commonLayout)/profile/order-details/page";
 import { Badge } from "@/components/ui/badge";
 import PaginationControls from "@/components/ui/pagination-controls";
 import {
@@ -10,14 +9,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { PencilIcon } from "lucide-react";
 import { formatDate } from "@/constants/formatDate";
+import { getStatusColor } from "@/constants/statusColor";
 
 const OrdersTableAdmin = ({ orders, meta }) => {
   return (

@@ -3,7 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Calendar, MessageSquareText, Search, UserStar } from "lucide-react";
-import { getStatusColor } from "./page";
+
 import { formatDate } from "@/constants/formatDate";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -11,6 +11,7 @@ import PaginationControls from "@/components/ui/pagination-controls";
 import { useState } from "react";
 import { ReviewDialog } from "@/components/modules/orders/ReviewDialog";
 import Image from "next/image";
+import { getStatusColor } from "@/constants/statusColor";
 
 export default function OrdersClient({ orders, pagination }) {
   const [open, setOpen] = useState(false);

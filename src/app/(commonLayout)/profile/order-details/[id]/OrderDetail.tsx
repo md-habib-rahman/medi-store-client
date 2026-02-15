@@ -16,7 +16,8 @@ import { GetOrdersParams } from "@/services/order.service";
 import { colorConstant } from "@/constants/color";
 import { Order } from "@/types/order.typs";
 import { formatDate } from "@/constants/formatDate";
-import { getStatusColor } from "../page";
+import { getStatusColor } from "@/constants/statusColor";
+
 
 export function OrderDetail({ order }: { order: Order }) {
   return (
