@@ -15,6 +15,7 @@ import { Input } from "./ui/input";
 import * as z from "zod";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
+import { redirect } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(4, "This field is required"),
@@ -36,11 +37,13 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
       const toastId = toast.loading("creating user");
       try {
         const { data, error } = await authClient.signUp.email(value);
+        // console.log({ data, error })
         if (error) {
           toast.error(error.message, { id: toastId });
           return;
         }
         toast.success("User created successfully!", { id: toastId });
+        redirect("/login");
       } catch (err) {
         toast.error("something went wrong, please try again", { id: toastId });
       }
@@ -134,7 +137,11 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
               }}
             />
           </FieldGroup>
-          <Button variant={"rumedi_primary"} className="cursor-pointer w-full mt-4" type="submit">
+          <Button
+            variant={"rumedi_primary"}
+            className="cursor-pointer w-full mt-4"
+            type="submit"
+          >
             Register
           </Button>
         </form>

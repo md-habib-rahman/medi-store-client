@@ -222,11 +222,11 @@ export const logIn = async (data: LoginPayload) => {
 			credentials: "include",
 		})
 
-		// const res = await authClient.signIn.email(data)
+		// const result = await authClient.signIn.email(headers: await headers())
 		const result = await res.json()
 
-		console.log(res)
-		return { success: true, data: res, error: null }
+		console.log(result)
+		return { success: true, data: result, error: null }
 
 	} catch (err: any) {
 		console.error("Sign-in error:", err);
