@@ -223,6 +223,7 @@ export const logIn = async (data: LoginPayload) => {
 		})
 
 		// const res = await authClient.signIn.email(data)
+		const result = await res.json()
 
 		console.log(res)
 		return { success: true, data: res, error: null }
