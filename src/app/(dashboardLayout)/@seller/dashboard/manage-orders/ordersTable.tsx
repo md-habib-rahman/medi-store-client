@@ -1,5 +1,4 @@
 "use client";
-import { getStatusColor } from "@/app/(commonLayout)/profile/order-details/page";
 import { Badge } from "@/components/ui/badge";
 import PaginationControls from "@/components/ui/pagination-controls";
 import {
@@ -23,50 +22,22 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { formatDate } from "@/constants/formatDate";
 
-// const invoices = [
-//   {
-//     invoice: "INV001",
-//     paymentStatus: "Paid",
-//     totalAmount: "$250.00",
-//     paymentMethod: "Credit Card",
-//   },
-//   {
-//     invoice: "INV002",
-//     paymentStatus: "Pending",
-//     totalAmount: "$150.00",
-//     paymentMethod: "PayPal",
-//   },
-//   {
-//     invoice: "INV003",
-//     paymentStatus: "Unpaid",
-//     totalAmount: "$350.00",
-//     paymentMethod: "Bank Transfer",
-//   },
-//   {
-//     invoice: "INV004",
-//     paymentStatus: "Paid",
-//     totalAmount: "$450.00",
-//     paymentMethod: "Credit Card",
-//   },
-//   {
-//     invoice: "INV005",
-//     paymentStatus: "Paid",
-//     totalAmount: "$550.00",
-//     paymentMethod: "PayPal",
-//   },
-//   {
-//     invoice: "INV006",
-//     paymentStatus: "Pending",
-//     totalAmount: "$200.00",
-//     paymentMethod: "Bank Transfer",
-//   },
-//   {
-//     invoice: "INV007",
-//     paymentStatus: "Unpaid",
-//     totalAmount: "$300.00",
-//     paymentMethod: "Credit Card",
-//   },
-// ];
+export const getStatusColor = (status: string) => {
+  switch (status) {
+    case "DELIVERED":
+      return "bg-green-100 text-green-800";
+    case "RECEIVED":
+      return "bg-blue-100 text-blue-800";
+    case "SHIPPED":
+      return "bg-purple-100 text-purple-800";
+    case "CANCELLED":
+      return "bg-red-100 text-red-800";
+    case "PENDING":
+      return "bg-[#FA941E]/20 text-[#FA941E]";
+    default:
+      return "bg-gray-100 text-gray-800";
+  }
+};
 
 const OrderStatus = [
   { id: 1, content: "PENDING" },
