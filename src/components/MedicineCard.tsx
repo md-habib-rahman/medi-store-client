@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { MedicineCardType } from "@/types/medicine.types";
+import { MedicineCardProps, MedicineCardType } from "@/types/medicine.types";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { ShoppingCart } from "lucide-react";
@@ -21,7 +21,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 
 
-const MedicineCard = ({ medicine }: MedicineCardType) => {
+const MedicineCard = ({ medicine }: MedicineCardProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const handleAddToCart = (medicine) => {

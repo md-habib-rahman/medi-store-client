@@ -48,3 +48,8 @@ export type ShopFilters = {
 	minPrice?: number;
 	maxPrice?: number;
 };
+
+
+export interface MedicineCardProps {
+  medicine: MedicineCardType;
+}
