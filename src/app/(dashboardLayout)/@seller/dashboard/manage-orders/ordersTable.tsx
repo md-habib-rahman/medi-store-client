@@ -104,6 +104,7 @@ const OrdersTable = ({ orders, meta }) => {
               <TableHead>Order Date</TableHead>
               <TableHead>Shipping Address</TableHead>
               <TableHead>Product</TableHead>
+              <TableHead>Customer Review</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Change Status</TableHead>
 
@@ -127,6 +128,9 @@ const OrdersTable = ({ orders, meta }) => {
                   ))}
                 </TableCell>
                 <TableCell>
+                 {order?.review?.comment}
+                </TableCell>
+				<TableCell>
                   {" "}
                   <Badge className={getStatusColor(order.orderStatus)}>
                     {order.orderStatus}

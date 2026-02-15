@@ -2,7 +2,6 @@ import { formatDate } from "@/constants/formatDate";
 import { MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 
-
 export default async function SellerPage({ seller }) {
   //   console.log(seller);
   return (
@@ -12,7 +11,10 @@ export default async function SellerPage({ seller }) {
         {/* Logo */}
         <div className="relative w-24 h-24 rounded-md overflow-hidden border">
           <Image
-            src={seller?.image && seller?.image }
+            // width="800"
+            // height="600"
+			fill
+            src={seller?.image}
             alt={seller?.name}
             className="object-cover"
           />

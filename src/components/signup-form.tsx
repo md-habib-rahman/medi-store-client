@@ -134,7 +134,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
               }}
             />
           </FieldGroup>
-          <Button className="cursor-pointer w-full mt-4" type="submit">
+          <Button variant={"rumedi_primary"} className="cursor-pointer w-full mt-4" type="submit">
             Register
           </Button>
         </form>

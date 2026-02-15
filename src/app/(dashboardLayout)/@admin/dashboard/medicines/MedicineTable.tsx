@@ -16,7 +16,13 @@ type MedicineTableProps = {
   data: any;
 };
 
-export function MedicineTableAdmin({ data }: MedicineTableProps) {
+export function MedicineTableAdmin({
+  data,
+  pagination,
+}: {
+  data: MedicineTableProps;
+}) {
+  const { limit, page: currentPage, total, totalPages } = pagination;
   return (
     <Table>
       <TableHeader className="bg-gray-300">
@@ -33,7 +39,9 @@ export function MedicineTableAdmin({ data }: MedicineTableProps) {
       <TableBody>
         {data?.data?.map((med: MedicineCardType, index: number) => (
           <TableRow key={med.id}>
-            <TableCell className="font-medium">{index + 1}</TableCell>
+            <TableCell className="font-medium">
+              {(currentPage - 1) * limit + index + 1}
+            </TableCell>
             <TableCell className="font-medium">{med.title}</TableCell>
             <TableCell className="font-medium">{med.manufacturer}</TableCell>
             <TableCell className="font-medium">{med.category.title}</TableCell>

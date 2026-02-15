@@ -24,7 +24,7 @@ type User = {
 };
 
 export default function AccountInformation({ user }: { user: User }) {
-  //   const [loading, setLoading] = useState(true);
+  
 
   const [formData, setFormData] = useState({
     name: user.name || "",
@@ -95,7 +95,7 @@ export default function AccountInformation({ user }: { user: User }) {
         </Button>
       </div>
 
-      {/* Profile Picture */}
+      
       <div className="flex items-center gap-6 mb-8">
         <div className="relative w-24 h-24 rounded-full overflow-hidden border">
           <Image

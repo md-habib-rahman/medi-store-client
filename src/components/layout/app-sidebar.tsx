@@ -16,6 +16,13 @@ import Link from "next/link";
 import { adminRoutes } from "@/routes/adminRoutes";
 import { sellerRoutes } from "@/routes/sellerRoutes";
 import { Roles } from "@/constants/roles";
+import {
+  ChartBarStacked,
+  LogOut,
+  Pill,
+  ShoppingBag,
+  UserRoundCog,
+} from "lucide-react";
 
 // This is sample data.
 
@@ -47,13 +54,19 @@ export function AppSidebar({
             <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {item.items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <Link href={item.url}>{item.title}</Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
+                {item.items.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild>
+                        <Link href={`${item.url}`}>
+                          <Icon className="w-5 h-5 mr-3 text-[#FA941E]" />
+                          {item.title}
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>

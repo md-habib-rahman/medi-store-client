@@ -15,7 +15,7 @@ const page = async ({ searchParams }: { searchParams: { page?: string } }) => {
   };
   return (
     <div>
-      <MedicineTableAdmin data={data} />
+      <MedicineTableAdmin data={data} pagination={pagination} />
 
       <PaginationControls meta={pagination} />
     </div>

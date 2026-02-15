@@ -117,7 +117,7 @@ export default function CartPage() {
           Your cart is empty
         </h2>
         <Link href="/shops">
-          <Button className="mt-4 bg-[#2F91CC]">Browse Medicines</Button>
+          <Button className="mt-4 bg-[#2F91CC]" variant={"rumedi_primary_outline"}>Browse Medicines</Button>
         </Link>
       </div>
     );

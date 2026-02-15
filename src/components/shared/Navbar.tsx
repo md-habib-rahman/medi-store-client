@@ -22,7 +22,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { useState, useEffect } from "react";
 import { getSession, logOut } from "@/services/user.service";
@@ -31,7 +31,7 @@ import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { getCart, removeFromCart } from "@/services/cart.service";
 
-export default function Navbar({ session }) {
+export default function Navbar({ session, user }) {
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -134,7 +134,7 @@ export default function Navbar({ session }) {
             <DropdownMenu>
               <DropdownMenuTrigger>
                 {cart.length > 0 ? (
-                  <img
+                  <Image
                     className="cursor-pointer"
                     width="30"
                     height="30"
@@ -152,9 +152,10 @@ export default function Navbar({ session }) {
                   cart.map((item) => (
                     <DropdownMenuItem className="flex items-start gap-3 p-3 cursor-default focus:bg-transparent">
                       {/* Thumbnail */}
-                      <img
+                      <Image
                         src={item.thumbnail}
                         alt={item.title}
+                        fill
                         className="h-12 w-12 rounded-md object-cover border"
                       />
 
@@ -220,6 +221,12 @@ export default function Navbar({ session }) {
                 <DropdownMenu>
                   <DropdownMenuTrigger>
                     <Avatar>
+                      <AvatarImage
+                        src={user?.image || undefined}
+                        alt={user?.name || "User avatar"}
+                        referrerPolicy="no-referrer"
+						className="cursor-pointer"
+                      />
                       <AvatarFallback className="text-2xl font-bold bg-indigo-500 text-white cursor-pointer">
                         X
                       </AvatarFallback>
@@ -256,20 +263,10 @@ export default function Navbar({ session }) {
             ) : (
               <div>
                 <Link href="/login">
-                  <Button
-                    className="rounded-full bg-primary text-secondary font-semibold hover:text-primary hover:bg-secondary hover:border-primary"
-                    variant="outline"
-                  >
-                    Login
-                  </Button>
+                  <Button variant={"rumedi_primary"}>Login</Button>
                 </Link>{" "}
                 <Link href="/register">
-                  <Button
-                    className="rounded-full bg-secondary font-semibold hover:text-secondary border-primary hover:bg-primary cursor-pointer"
-                    variant="outline"
-                  >
-                    Register
-                  </Button>
+                  <Button variant={"rumedi_secondary"}>Register</Button>
                 </Link>
               </div>
             )}

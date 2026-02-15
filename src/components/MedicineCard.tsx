@@ -18,6 +18,7 @@ import { ShoppingCart } from "lucide-react";
 import { addToCart } from "@/services/cart.service";
 import { toast } from "sonner";
 import { usePathname, useRouter } from "next/navigation";
+import Image from "next/image";
 
 
 const MedicineCard = ({ medicine }: MedicineCardType) => {
@@ -45,9 +46,10 @@ const MedicineCard = ({ medicine }: MedicineCardType) => {
     <Card className="h-full overflow-hidden p-0">
       <CardHeader className="relative block p-0">
         <AspectRatio ratio={1.268115942} className="overflow-hidden">
-          <img
+          <Image
             src={medicine.thumbnail ? medicine.thumbnail : "rumedi_logo.png"}
             alt={medicine.title}
+			fill
             className="block size-full object-cover object-center"
           />
         </AspectRatio>
@@ -79,7 +81,7 @@ const MedicineCard = ({ medicine }: MedicineCardType) => {
         </CardDescription>
       </CardContent>
 
-      <div className="flex justify-between px-4 pb-4">
+      <div className="flex flex-col justify-between px-4 pb-4">
         <Price className="text-2xl font-bold">
           <PriceValue price={medicine.price} />
         </Price>

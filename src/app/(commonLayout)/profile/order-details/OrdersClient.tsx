@@ -2,7 +2,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Calendar, Search } from "lucide-react";
+import { Calendar, MessageSquareText, Search, UserStar } from "lucide-react";
 import { getStatusColor } from "./page";
 import { formatDate } from "@/constants/formatDate";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,7 @@ import Link from "next/link";
 import PaginationControls from "@/components/ui/pagination-controls";
 import { useState } from "react";
 import { ReviewDialog } from "@/components/modules/orders/ReviewDialog";
+import Image from "next/image";
 
 export default function OrdersClient({ orders, pagination }) {
   const [open, setOpen] = useState(false);
@@ -49,15 +50,17 @@ export default function OrdersClient({ orders, pagination }) {
             className="border rounded-lg p-4 hover:shadow-md transition-shadow"
           >
             <div className="flex flex-col md:flex-row lg:items-start justify-between gap-4">
-              {/* Left section */}
               <div className="flex gap-4">
-                <img
-                  src={order.items[0].medicine.thumbnail}
-                  alt="Product"
-                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-md object-cover flex-shrink-0"
-                />
+                <div className="relative w-25">
+                  <Image
+                    src={order.items[0].medicine.thumbnail}
+                    fill
+                    alt="Product"
+                    className="rounded-md object-cover"
+                  />
+                </div>
 
-                <div className="min-w-0">
+                <div className="">
                   <div className="flex flex-wrap items-center gap-2 mb-1">
                     <h3 className="font-semibold text-gray-900 text-sm sm:text-base truncate max-w-[220px] sm:max-w-none">
                       {order.id}
@@ -82,11 +85,17 @@ export default function OrdersClient({ orders, pagination }) {
                       </span>
                     ))}
                   </div>
+                  {order.review && (
+                    <div className="flex items-center gap-2 mt-2 text-gray-600 text-xs">
+                      <MessageSquareText className="w-4 h-4 mr-1" />
+                      <span>{order.review.comment}</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
               {/* Right section */}
-              <div className="flex flex-col items-center items-end justify-between lg:justify-start gap-3 lg:w-auto">
+              <div className="flex flex-col items-end justify-between lg:justify-start gap-3 lg:w-auto">
                 <div className="text-xl sm:text-2xl font-bold text-gray-900">
                   ${order.totalPrice}
                 </div>

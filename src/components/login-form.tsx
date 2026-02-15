@@ -77,9 +77,9 @@ const LoginForm = () => {
           </small>
         </div>
       </div>
-      <div className="flex items-center my-5 justify-around">
+      <div className="flex items-center my-5 justify-around gap-2">
         <Button
-          variant="default"
+          variant={"rumedi_primary_outline"}
           size="sm"
           className="cursor-pointer"
           onClick={() => {
@@ -90,7 +90,7 @@ const LoginForm = () => {
           Demo Admin
         </Button>
         <Button
-          variant="default"
+          variant={"rumedi_primary_outline"}
           size="sm"
           className="cursor-pointer"
           onClick={() => {
@@ -101,7 +101,7 @@ const LoginForm = () => {
           Demo customer
         </Button>
         <Button
-          variant="default"
+          variant={"rumedi_primary_outline"}
           size="sm"
           className="cursor-pointer"
           onClick={() => {
@@ -150,7 +150,7 @@ const LoginForm = () => {
             )}
           />
 
-          <Button className="w-full mb-3 cursor-pointer" type="submit">
+          <Button variant={"rumedi_primary"} className="w-full mb-3 cursor-pointer" type="submit">
             {isSubmitting ? "Logging..." : "login"}
           </Button>
           <div className="flex items-center justify-center">
@@ -164,7 +164,7 @@ const LoginForm = () => {
 
           <div className="flex items-center justify-center ">
             <Link href={"/"}>
-              <Button variant="default" className="w-full cursor-pointer">
+              <Button variant={"rumedi_secondary_outline"} className="w-full cursor-pointer">
                 Back To Home
               </Button>
             </Link>
