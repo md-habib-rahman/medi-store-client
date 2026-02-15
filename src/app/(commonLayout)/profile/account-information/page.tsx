@@ -1,4 +1,4 @@
-// page.tsx (server)
+'use server'
 
 import { getSession } from "@/services/user.service";
 import AccountInformation from "./AccountInformation";
