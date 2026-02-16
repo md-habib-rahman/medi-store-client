@@ -1,7 +1,8 @@
 import { createAuthClient } from "better-auth/react";
 
 export const authClient = createAuthClient({
-	baseURL:"https://medi-store-backend-rust.vercel.app",
+	// baseURL:"https://medi-store-backend-rust.vercel.app",
+	baseURL: "http://localhost:5000/api/auth",
 	fetchOptions: {
 		credentials: "include"
 	},

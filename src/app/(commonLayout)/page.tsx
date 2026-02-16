@@ -12,7 +12,7 @@ import Link from "next/link";
 
 const page = async () => {
   const { data } = await MedicineService.getMedicine({ limit: 8 });
-  console.log(data);
+//   console.log(data);
   return (
     <div>
       <HeroCarousel />

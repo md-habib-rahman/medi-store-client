@@ -34,7 +34,7 @@ const LoginForm = () => {
       //   console.log(data);
       //   const res = await authClient.signIn.email(data);
       const res = await authClient.signIn.email(data);
-      console.log(data);
+      console.log(res);
       if (res.data?.user) {
         toast.success("Logged in");
         if (redirect) {

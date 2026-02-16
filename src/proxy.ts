@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 
-import { Roles } from "./src/constants/roles";
-import { getSession } from "./src/services/user.service";
+import { Roles } from "./constants/roles";
+import { getSession } from "./services/user.service";
 
 
 export const proxy = async (req: NextRequest) => {

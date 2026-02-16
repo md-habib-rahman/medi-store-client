@@ -15,9 +15,7 @@ interface UserParams {
 
 export const getSession = async () => {
 	try {
-
 		const cookieStore = await cookies()
-
 		const res = await fetch(`${API_URL}/auth/get-session`, {
 			headers: {
 				Cookie: cookieStore.toString()
@@ -25,12 +23,14 @@ export const getSession = async () => {
 			cache: "no-store"
 		})
 
-		// const session = await authClient.getSession({
-		// 	headers: await headers()
-		// })
+		// console.log(cookieStore)
+
+		// const { data: session } = await authClient.getSession()
 
 		const session = await res.json()
 		// console.log(session)
+
+		console.log(session)
 		return { data: session, error: null }
 
 	} catch (err) {
