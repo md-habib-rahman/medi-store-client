@@ -20,6 +20,7 @@ export const getSession = async () => {
 			headers: {
 				Cookie: cookieStore.toString()
 			},
+			credentials: "include",
 			cache: "no-store"
 		})
 
@@ -32,6 +33,7 @@ export const getSession = async () => {
 
 		console.log(session)
 		return { data: session, error: null }
+
 
 	} catch (err) {
 		console.error(err)
