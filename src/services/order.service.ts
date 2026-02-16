@@ -38,6 +38,7 @@ export const orderService = {
 
 			const res = await fetch(`${API_URL}/orders`, {
 				method: "POST",
+				credentials: "include",
 				headers: {
 					"Content-Type": "application/json",
 					Cookie: cookieStore.toString(),
@@ -69,6 +70,7 @@ export const orderService = {
 
 			const res = await fetch(`${API_URL}/orders/review`, {
 				method: "POST",
+				credentials: "include",
 				headers: {
 					"Content-Type": "application/json",
 					Cookie: cookieStore.toString(),
@@ -107,6 +109,7 @@ export const orderService = {
 
 			const config: RequestInit & { next?: any } = {
 				method: "GET",
+				credentials: "include",
 				headers: {
 					"Content-Type": "application/json",
 					Cookie: cookieStore.toString(),
@@ -143,6 +146,7 @@ export const orderService = {
 
 			const res = await fetch(`${API_URL}/seller/orders/${id}`, {
 				method: "PATCH",
+				credentials: "include",
 				headers: {
 					"Content-Type": "application/json",
 					Cookie: cookieStore.toString(),
@@ -172,6 +176,7 @@ export const orderService = {
 
 			const config: RequestInit & { next?: any } = {
 				method: "GET",
+				credentials: "include",
 				headers: {
 					"Content-Type": "application/json",
 					Cookie: cookieStore.toString(),

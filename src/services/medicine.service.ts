@@ -42,7 +42,7 @@ export const MedicineService = {
 					"Content-Type": "application/json",
 					Cookie: cookieStore.toString(),
 				},
-
+				credentials: "include",
 				body: JSON.stringify(medData)
 			})
 
@@ -160,6 +160,7 @@ export const MedicineService = {
 					"Content-Type": "application/json",
 					Cookie: cookieStore.toString(),
 				},
+				credentials: "include",
 
 			})
 
@@ -189,7 +190,7 @@ export const MedicineService = {
 					"Content-Type": "application/json",
 					Cookie: cookieStore.toString(),
 				},
-
+				credentials: "include",
 				body: JSON.stringify(payload)
 			})
 
@@ -218,7 +219,7 @@ export const MedicineService = {
 					"Content-Type": "application/json",
 					Cookie: cookieStore.toString(),
 				},
-
+				credentials: "include",
 				body: JSON.stringify({ quantity })
 			})
 

@@ -95,6 +95,7 @@ export const updateUserStatus = async (id: string, payload: userStatusPayload) =
 
 		const res = await fetch(`${API_URL}/admin/users/${id}`, {
 			method: "PATCH",
+			credentials: "include",
 			headers: {
 				"Content-Type": "application/json",
 				Cookie: cookieStore.toString()
@@ -126,6 +127,7 @@ export const updateUserRole = async (id: string, payload: userRolePayload) => {
 
 		const res = await fetch(`${API_URL}/admin/users/role/${id}`, {
 			method: "PATCH",
+			credentials: "include",
 			headers: {
 				"Content-Type": "application/json",
 				Cookie: cookieStore.toString()
@@ -157,6 +159,7 @@ export const updateUserImage = async (id: string, payload: userImagePayload) => 
 
 		const res = await fetch(`${API_URL}/user/updateImage/${id}`, {
 			method: "PATCH",
+			credentials: "include",
 			headers: {
 				"Content-Type": "application/json",
 				Cookie: cookieStore.toString()
@@ -187,6 +190,7 @@ export const updateUserInfo = async (id: string, payload: updateUserInfoPayload)
 
 		const res = await fetch(`${API_URL}/user/updateUser/${id}`, {
 			method: "PUT",
+			credentials: "include",
 			headers: {
 				"Content-Type": "application/json",
 				Cookie: cookieStore.toString()
@@ -215,6 +219,7 @@ export const logIn = async (data: LoginPayload) => {
 	try {
 		const res = await fetch(`${API_URL}/auth/sign-in/email`, {
 			method: "POST",
+
 
 			headers: {
 				"Content-Type": "application/json",
@@ -253,7 +258,7 @@ export const getCurrentUserService = async () => {
 }
 
 export const logOut = async () => {
-	const res = await fetch(`${AUTH_API}/auth/sign-out`, {
+	const res = await fetch(`${API_URL}/auth/sign-out`, {
 		method: "POST",
 		credentials: "include",
 		headers: {

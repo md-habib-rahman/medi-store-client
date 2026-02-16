@@ -62,6 +62,7 @@ export const categoryService = {
 
 			const res = await fetch(`${API_URL}/categories`, {
 				method: "POST",
+				credentials: "include",
 				headers: {
 					"Content-Type": "application/json",
 					Cookie: cookieStore.toString(),
@@ -90,6 +91,7 @@ export const categoryService = {
 
 			const res = await fetch(`${API_URL}/categories/${id}`, {
 				method: "DELETE",
+				credentials: "include",
 				headers: {
 					"Content-Type": "application/json",
 					Cookie: cookieStore.toString(),
