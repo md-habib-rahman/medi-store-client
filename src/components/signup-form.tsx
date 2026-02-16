@@ -15,7 +15,7 @@ import { Input } from "./ui/input";
 import * as z from "zod";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(4, "This field is required"),
@@ -24,6 +24,7 @@ const formSchema = z.object({
 });
 
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
+  const router = useRouter();
   const form = useForm({
     defaultValues: {
       name: "",
@@ -37,13 +38,15 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
       const toastId = toast.loading("creating user");
       try {
         const { data, error } = await authClient.signUp.email(value);
-        // console.log({ data, error })
+        console.log({ data, error });
         if (error) {
           toast.error(error.message, { id: toastId });
           return;
         }
-        toast.success("User created successfully!", { id: toastId });
-        redirect("/login");
+        if (data.user) {
+          toast.success("User created successfully!", { id: toastId });
+          router.push("/login");
+        }
       } catch (err) {
         toast.error("something went wrong, please try again", { id: toastId });
       }
