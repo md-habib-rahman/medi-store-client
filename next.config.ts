@@ -12,14 +12,14 @@ const config: NextConfig = {
 	typescript: {
 		ignoreBuildErrors: true,
 	},
-	// async rewrites() {
-	// 	return [
-	// 		{
-	// 			source: "/api/auth/:path*",
-	// 			destination: `${process.env.NEXT_PUBLIC_BASE_API}/api/auth/:path*`,
-	// 		},
-	// 	];
-	// },
+	async rewrites() {
+		return [
+			{
+				source: "/api/auth/:path*",
+				destination: `${process.env.NEXT_PUBLIC_BASE_API}/api/auth/:path*`,
+			},
+		];
+	},
 }
 
 

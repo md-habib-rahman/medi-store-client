@@ -2,7 +2,7 @@
 import { authClient } from "@/lib/auth-client"
 import { LoginPayload } from "@/types/login.types"
 import { updateUserInfoPayload, userImagePayload, userRolePayload, userStatusPayload } from "@/types/user.types"
-import { cookies, headers } from "next/headers"
+import { cookies } from "next/headers"
 
 
 const API_URL = process.env.NEXT_PUBLIC_BASE_API
