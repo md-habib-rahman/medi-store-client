@@ -9,14 +9,11 @@ const config: NextConfig = {
 			},
 		],
 	},
-	typescript: {
-		ignoreBuildErrors: true,
-	},
 	async rewrites() {
 		return [
 			{
 				source: "/api/auth/:path*",
-				destination: `${process.env.NEXT_PUBLIC_BASE_API}/api/auth/:path*`,
+				destination: `https://medi-store-backend-rust.vercel.app/api/auth/:path*`,
 			},
 		];
 	},
