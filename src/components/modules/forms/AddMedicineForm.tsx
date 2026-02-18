@@ -23,7 +23,11 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { addMedicine, updateMedicine } from "@/actions/action";
-import { Medicine } from "@/types/medicine.types";
+import {
+  Medicine,
+  MedicineData,
+  MedicinePayload,
+} from "@/types/medicine.types";
 
 type Category = {
   id: string;
@@ -75,14 +79,14 @@ export const AddMedicineForm = ({
         thumbnailUrl = await uploadToImgbb(imageFile);
       }
 
-      const payload = {
-        categoryId: formData.get("categoryId"),
-        generic: formData.get("generic"),
-        title: formData.get("title"),
-        manufacturer: formData.get("manufacturer"),
+      const payload: MedicinePayload = {
+        categoryId: formData.get("categoryId")?.toString(),
+        generic: formData.get("generic")?.toString(),
+        title: formData.get("title")?.toString(),
+        manufacturer: formData.get("manufacturer")?.toString(),
         price: Number(formData.get("price")),
         availableQuantity: Number(formData.get("availableQuantity")),
-        details: formData.get("details"),
+        details: formData.get("details")?.toString(),
         isAvailable: formData.get("isAvailable") === "on",
         thumbnail: thumbnailUrl,
       };

@@ -69,3 +69,15 @@ export interface CartMedicine {
 	sellerId: string,
 	thumbnail: string,
 }
+
+export interface MedicinePayload {
+	categoryId?: string | null
+	generic?: string
+	title?: string
+	manufacturer?: string
+	price?: number
+	availableQuantity?: number
+	details?: string
+	isAvailable?: boolean
+	thumbnail?: string
+}

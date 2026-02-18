@@ -4,6 +4,7 @@ import { catData, categoryService, ServiceOptions } from "@/services/category.se
 import { GetMedicinePrams, MedicineData, MedicineService } from "@/services/medicine.service"
 import { GetOrdersParams, orderService, ReviewPayload, updateOrderStatusPayload } from "@/services/order.service"
 import { updateUserRole, updateUserStatus, getCurrentUserService } from "@/services/user.service"
+import { MedicinePayload } from "@/types/medicine.types"
 import { OrderPayload } from "@/types/order.typs"
 import { userRolePayload, userStatusPayload } from "@/types/user.types"
 import { updateTag } from "next/cache"
@@ -51,7 +52,7 @@ export const addCategory = async (data: catData) => {
 	return res
 }
 
-export const addMedicine = async (data: MedicineData) => {
+export const addMedicine = async (data: MedicinePayload) => {
 	const res = await MedicineService.createMedicine(data)
 	updateTag("medicine")
 	return res
@@ -62,7 +63,7 @@ export const postReview = async (data: ReviewPayload) => {
 	return res
 }
 
-export const updateMedicine = async (id: string, data: MedicineData) => {
+export const updateMedicine = async (id: string, data: MedicinePayload) => {
 	const res = await MedicineService.updateMedicine(id, data)
 	updateTag("medicine")
 	return res

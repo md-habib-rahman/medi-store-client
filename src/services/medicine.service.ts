@@ -1,6 +1,7 @@
 import { env } from "process";
 import { ServiceOptions } from "./category.service";
 import { cookies } from "next/headers";
+import { MedicinePayload } from "@/types/medicine.types";
 
 const API_URL = env.NEXT_PUBLIC_BASE_API;
 
@@ -32,7 +33,7 @@ export interface MedicineData {
 
 export const MedicineService = {
 
-	createMedicine: async function (medData: MedicineData) {
+	createMedicine: async function (medData: MedicinePayload) {
 		try {
 			const cookieStore = await cookies()
 
@@ -180,7 +181,7 @@ export const MedicineService = {
 
 	},
 
-	updateMedicine: async function (id: string, payload: MedicineData) {
+	updateMedicine: async function (id: string, payload: MedicinePayload) {
 		try {
 			const cookieStore = await cookies()
 
