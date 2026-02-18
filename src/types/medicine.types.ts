@@ -60,3 +60,12 @@ export type ShopFilters = {
 export interface MedicineCardProps {
 	medicine: MedicineCardType;
 }
+
+export interface CartMedicine {
+	id: string,
+	title: string,
+	price: number,
+	quantity: number,
+	sellerId: string,
+	thumbnail: string,
+}

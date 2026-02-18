@@ -11,7 +11,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { MedicineCardProps, MedicineCardType } from "@/types/medicine.types";
+import {
+  CartMedicine,
+  Medicine,
+  MedicineCardProps,
+  MedicineCardType,
+} from "@/types/medicine.types";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { ShoppingCart } from "lucide-react";
@@ -20,11 +25,10 @@ import { toast } from "sonner";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 
-
-const MedicineCard = ({ medicine }: MedicineCardProps) => {
+const MedicineCard = ({ medicine }: { medicine: MedicineCardType }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const handleAddToCart = (medicine) => {
+  const handleAddToCart = (medicine: MedicineCardType) => {
     const toastId = toast.loading("Adding to Cart....");
     addToCart({
       medicineId: medicine.id,
@@ -34,11 +38,11 @@ const MedicineCard = ({ medicine }: MedicineCardProps) => {
       sellerId: medicine.sellerId,
       thumbnail: medicine.thumbnail,
     });
-	window.location.reload()
-	// router.refresh();
-	// console.log(pathname)
+    window.location.reload();
+    // router.refresh();
+    // console.log(pathname)
     // router.push(pathname);
-    
+
     toast.success("Cart Updated", { id: toastId });
   };
 
@@ -49,7 +53,7 @@ const MedicineCard = ({ medicine }: MedicineCardProps) => {
           <Image
             src={medicine.thumbnail ? medicine.thumbnail : "rumedi_logo.png"}
             alt={medicine.title}
-			fill
+            fill
             className="block size-full object-cover object-center"
           />
         </AspectRatio>
