@@ -29,8 +29,15 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { getCart, removeFromCart } from "@/services/cart.service";
+import { AuthUser, Session } from "@/types/user.types";
 
-export default function Navbar({ session, user }) {
+export default function Navbar({
+  session,
+  user,
+}: {
+  session: Session;
+  user: AuthUser;
+}) {
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -224,7 +231,7 @@ export default function Navbar({ session, user }) {
                         src={user?.image || undefined}
                         alt={user?.name || "User avatar"}
                         referrerPolicy="no-referrer"
-						className="cursor-pointer"
+                        className="cursor-pointer"
                       />
                       <AvatarFallback className="text-2xl font-bold bg-indigo-500 text-white cursor-pointer">
                         X

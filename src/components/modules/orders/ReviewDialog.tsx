@@ -9,16 +9,26 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Field, FieldGroup } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Dispatch, SetStateAction } from "react";
+import { Order } from "@/types/order.typs";
 
-export function ReviewDialog({ open, setOpen, order, setOrder }) {
+export function ReviewDialog({
+  open,
+  setOpen,
+  order,
+  setOrder,
+}: {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  setOrder: Dispatch<SetStateAction<string | null>>;
+  order: string | null;
+}) {
   const [comment, setComment] = useState("");
   //   console.log(order);
 
@@ -46,9 +56,6 @@ export function ReviewDialog({ open, setOpen, order, setOrder }) {
   };
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      {/* <DialogTrigger asChild>
-          <Button variant="outline">Open Dialog</Button>
-        </DialogTrigger> */}
       <DialogContent className="sm:max-w-sm">
         <DialogHeader>
           <DialogTitle>Edit profile</DialogTitle>
