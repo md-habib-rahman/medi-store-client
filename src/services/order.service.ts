@@ -22,7 +22,7 @@ export interface updateOrderStatusPayload {
 
 export interface ReviewPayload {
 
-	orderId: string;
+	orderId: string | null;
 	comment: string;
 	status: string;
 

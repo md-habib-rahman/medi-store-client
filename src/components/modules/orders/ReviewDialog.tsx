@@ -16,7 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Dispatch, SetStateAction } from "react";
-import { Order } from "@/types/order.typs";
+
 
 export function ReviewDialog({
   open,
@@ -30,7 +30,7 @@ export function ReviewDialog({
   order: string | null;
 }) {
   const [comment, setComment] = useState("");
-  //   console.log(order);
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
