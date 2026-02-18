@@ -1,7 +1,10 @@
 import { MedicineCardType } from "@/types/medicine.types";
 
-export const setCart = (cart: CartItem) => {
-	localStorage.setItem('rumedi_cart', JSON.stringify(cart));
+export const setCart = (cart: CartItem[]) => {
+	if (typeof window !== "undefined") {
+		localStorage.setItem("rumedi_cart", JSON.stringify(cart));
+	}
+
 };
 
 export const getCart = (): CartItem[] => {
@@ -9,7 +12,7 @@ export const getCart = (): CartItem[] => {
 	return JSON.parse(localStorage.getItem('rumedi_cart') || "[]");
 };
 
-export const addToCart = (item: CartItem) => {
+export const addToCart = (item: CartItem): void => {
 	const cart = getCart();
 
 	const existing = cart.find(c => c.medicineId === item.medicineId);
@@ -19,7 +22,6 @@ export const addToCart = (item: CartItem) => {
 	} else {
 		cart.push(item);
 	}
-
 	setCart(cart);
 };
 
@@ -29,5 +31,7 @@ export const removeFromCart = (medicineId: string) => {
 };
 
 export const clearCart = () => {
-	localStorage.removeItem("rumedi_cart");
+	if (typeof window !== "undefined") {
+		localStorage.removeItem("rumedi_cart");
+	}
 };
