@@ -2,7 +2,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Calendar, MessageSquareText, Search, UserStar } from "lucide-react";
+import { Calendar, MessageSquareText, Search } from "lucide-react";
 
 import { formatDate } from "@/constants/formatDate";
 import { Button } from "@/components/ui/button";
@@ -12,8 +12,17 @@ import { useState } from "react";
 import { ReviewDialog } from "@/components/modules/orders/ReviewDialog";
 import Image from "next/image";
 import { getStatusColor } from "@/constants/statusColor";
+import { Order, PaginationMeta } from "@/types/order.typs";
 
-export default function OrdersClient({ orders, pagination }) {
+interface OrdersClientProps {
+  orders: Order[];
+  pagination: PaginationMeta;
+}
+
+export default function OrdersClient({
+  orders,
+  pagination,
+}: OrdersClientProps) {
   const [open, setOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
 
@@ -21,7 +30,6 @@ export default function OrdersClient({ orders, pagination }) {
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
-      {/* Header */}
       <div className="mb-6">
         <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">
           Order Details
@@ -31,7 +39,6 @@ export default function OrdersClient({ orders, pagination }) {
         </p>
       </div>
 
-      {/* Search */}
       <div className="mb-6">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -43,7 +50,6 @@ export default function OrdersClient({ orders, pagination }) {
         </div>
       </div>
 
-      {/* Orders */}
       <div className="space-y-4">
         {orders.map((order) => (
           <div
@@ -95,7 +101,6 @@ export default function OrdersClient({ orders, pagination }) {
                 </div>
               </div>
 
-              {/* Right section */}
               <div className="flex flex-col items-end justify-between lg:justify-start gap-3 lg:w-auto">
                 <div className="text-xl sm:text-2xl font-bold text-gray-900">
                   ${order.totalPrice}
@@ -129,7 +134,6 @@ export default function OrdersClient({ orders, pagination }) {
         ))}
       </div>
 
-      {/* Pagination */}
       <div className="mt-6">
         <PaginationControls meta={pagination} />
       </div>

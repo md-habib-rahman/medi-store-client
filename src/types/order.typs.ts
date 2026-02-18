@@ -19,6 +19,7 @@ export interface Order {
 	createdAt: string;
 	updatedAt: string;
 	items: OrderItem[];
+	review: Review;
 }
 
 export interface OrderItem {
@@ -33,4 +34,17 @@ export interface Medicine {
 	id: string;
 	title: string;
 	thumbnail: string;
+}
+
+export interface PaginationMeta {
+	total: number
+	page: number
+	limit: number
+	totalPages: number
+}
+
+export interface Review {
+	id: string
+	orderId: string
+	comment: string | null
 }

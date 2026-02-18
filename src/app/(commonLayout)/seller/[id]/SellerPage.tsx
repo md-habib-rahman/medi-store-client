@@ -1,8 +1,10 @@
 import { formatDate } from "@/constants/formatDate";
+import { Seller, SellerResponse } from "@/types/seller.types";
+
 import { MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 
-export default async function SellerPage({ seller }) {
+export default async function SellerPage({ seller }: { seller: Seller }) {
   //   console.log(seller);
   return (
     <div className="container mx-auto px-4 py-6">
@@ -13,7 +15,7 @@ export default async function SellerPage({ seller }) {
           <Image
             // width="800"
             // height="600"
-			fill
+            fill
             src={seller?.image}
             alt={seller?.name}
             className="object-cover"

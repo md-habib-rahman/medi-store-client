@@ -9,11 +9,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { CategoryResType } from "@/types/medicine.types";
+import { CategoryResponse } from "@/types/categories.types";
 import { Trash } from "lucide-react";
 import { toast } from "sonner";
 
-export function CategoriesTable({ data }) {
+export function CategoriesTable({ data }: { data: CategoryResponse }) {
   const onDelete = async (id: string) => {
     const toastId = toast.loading("Deleting....");
 

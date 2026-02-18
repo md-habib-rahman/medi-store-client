@@ -22,6 +22,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { formatDate } from "@/constants/formatDate";
 import { getStatusColor } from "@/constants/statusColor";
+import { Order, PaginationMeta } from "@/types/order.typs";
 
 const OrderStatus = [
   { id: 1, content: "PENDING" },
@@ -29,7 +30,13 @@ const OrderStatus = [
   { id: 3, content: "SHIPPED" },
   { id: 4, content: "DELIVERED" },
 ];
-const OrdersTable = ({ orders, meta }) => {
+const OrdersTable = ({
+  orders,
+  meta,
+}: {
+  orders: Order[];
+  meta: PaginationMeta;
+}) => {
   const router = useRouter();
   const handleStatusChange = async (id: string, orderStatus: string) => {
     try {
@@ -82,10 +89,8 @@ const OrdersTable = ({ orders, meta }) => {
                     </p>
                   ))}
                 </TableCell>
+                <TableCell>{order?.review?.comment}</TableCell>
                 <TableCell>
-                 {order?.review?.comment}
-                </TableCell>
-				<TableCell>
                   {" "}
                   <Badge className={getStatusColor(order.orderStatus)}>
                     {order.orderStatus}

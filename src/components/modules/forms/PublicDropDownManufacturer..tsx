@@ -6,10 +6,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Manufacturer } from "@/types/manufacturer.types";
 import { useRouter, useSearchParams } from "next/navigation";
 
-
-function PublicDropDownManufacturer({ manufacturers: items }) {
+function PublicDropDownManufacturer({
+  manufacturers: items,
+}: {
+  manufacturers: Manufacturer[];
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const currentManufacturer = searchParams.get("manufacturer") ?? undefined;

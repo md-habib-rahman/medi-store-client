@@ -33,6 +33,13 @@ export type Medicine = {
 	thumbnail?: string;
 };
 
+export interface MedicineData {
+	data: MedicineCardType[]
+}
+export interface MedicineDataData {
+	data: MedicineData
+}
+
 
 export interface CategoryResType {
 	id: string,
@@ -51,5 +58,5 @@ export type ShopFilters = {
 
 
 export interface MedicineCardProps {
-  medicine: MedicineCardType;
+	medicine: MedicineCardType;
 }

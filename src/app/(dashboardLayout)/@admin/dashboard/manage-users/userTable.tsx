@@ -15,11 +15,12 @@ import { UserStatusSwitch } from "./UserStatusSwitch";
 import { Button } from "@/components/ui/button";
 import { UpdateUserRoleModal } from "./UpdateUserRoleModal";
 import { useState } from "react";
+import { AllUser } from "@/types/user.types";
 
-const UserTable = ({ data: items }) => {
+const UserTable = ({ data: items }: { data: AllUser[] }) => {
   const [open, setOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<any>(null);
-  const handleEdit = (user) => {
+  const handleEdit = (user: AllUser) => {
     setOpen(true);
     setSelectedUser(user);
   };

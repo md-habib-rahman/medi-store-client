@@ -17,3 +17,18 @@ export interface updateUserInfoPayload {
 	address: string;
 	image: string;
 }
+
+export interface AllUser {
+	id: string
+	name: string
+	email: string
+	emailVerified: boolean
+	image: string | ""
+	createdAt: string
+	updatedAt: string
+	status: "ACTIVE" | "INACTIVE"
+	role: "CUSTOMER" | "SELLER" | "ADMIN"
+	phone: string | null
+	address: string | null
+}
+

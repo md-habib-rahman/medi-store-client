@@ -5,7 +5,7 @@ import StatsCounter from "@/components/modules/home/StatsCounter";
 export default function AboutPage() {
   return (
     <div className="">
-      {/* Hero */}
+     
       <div className="bg-linear-to-r from-[#2F91CC] to-[#1e6fa3] text-white py-20 border">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl sm:text-5xl font-bold">About Rumedi</h1>
@@ -16,7 +16,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Mission & Vision */}
+     
       <div className="py-16">
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-10">
           <div>
@@ -43,7 +43,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Core Principles */}
+     
       <div className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-semibold text-center text-gray-900 mb-12">
@@ -83,10 +83,10 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Stats */}
+      
       <StatsCounter />
 
-      {/* Safety & Compliance */}
+      
       <div className="py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-semibold text-gray-900 mb-4">
@@ -114,7 +114,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* CTA */}
+      
       <CTASection />
     </div>
   );

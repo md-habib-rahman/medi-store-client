@@ -19,10 +19,22 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { userUpdateRole } from "@/actions/action";
 import { useRouter } from "next/navigation";
+import { AllUser } from "@/types/user.types";
+import { Dispatch, SetStateAction } from "react";
 
 const ROLES = ["ADMIN", "SELLER", "CUSTOMER"];
 
-export function UpdateUserRoleModal({ setOpen, open, onOpenChange, user }) {
+export function UpdateUserRoleModal({
+  setOpen,
+  open,
+  onOpenChange,
+  user,
+}: {
+  user: AllUser;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  onOpenChange: (open: boolean) => void;
+}) {
   const [role, setRole] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();

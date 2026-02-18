@@ -1,11 +1,12 @@
-import { getMedicine } from "@/actions/action";
 import PublicDropDownCategory from "@/components/modules/forms/PublicDropDownCategory";
 import PublicDropDownManufacturer from "@/components/modules/forms/PublicDropDownManufacturer.";
-import { otherService } from "@/services/other.service";
 import PriceFilterShop from "../../shops/PriceFilterShop";
 import { MedicineCard } from "@/components/MedicineCard";
 import PaginationControls from "@/components/ui/pagination-controls";
-import { MedicineCardType } from "@/types/medicine.types";
+import { MedicineCardType, MedicineDataData } from "@/types/medicine.types";
+import { PaginationMeta } from "@/types/order.typs";
+import { CategoryResponse } from "@/types/categories.types";
+import { ManufacturerRes } from "@/types/manufacturer.types";
 
 const API_URL = process.env.NEXT_PUBLIC_BASE_API;
 
@@ -14,6 +15,11 @@ export default async function SellerShop({
   data2,
   pagination,
   medicineResult,
+}: {
+  pagination: PaginationMeta;
+  medicineResult: MedicineDataData;
+  data1: CategoryResponse;
+  data2: ManufacturerRes;
 }) {
   //   console.log(data2.data.meta);
 

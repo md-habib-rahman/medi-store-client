@@ -6,10 +6,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Category } from "@/types/categories.types";
 import { useRouter, useSearchParams } from "next/navigation";
 
-
-function PublicDropDownCategory({ categories }) {
+function PublicDropDownCategory({ categories }: { categories: Category[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -23,7 +23,7 @@ function PublicDropDownCategory({ categories }) {
 
     router.push(`?${params.toString()}`);
   };
- 
+
   //   console.log({ categoryId });
   //   console.log(items);
   return (

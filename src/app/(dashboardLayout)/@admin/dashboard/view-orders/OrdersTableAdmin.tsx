@@ -11,8 +11,15 @@ import {
 } from "@/components/ui/table";
 import { formatDate } from "@/constants/formatDate";
 import { getStatusColor } from "@/constants/statusColor";
+import { Order, PaginationMeta } from "@/types/order.typs";
 
-const OrdersTableAdmin = ({ orders, meta }) => {
+const OrdersTableAdmin = ({
+  orders,
+  meta,
+}: {
+  orders: Order[];
+  meta: PaginationMeta;
+}) => {
   return (
     <div className="w-full">
       <div className="overflow-hidden rounded-md border">
@@ -52,7 +59,7 @@ const OrdersTableAdmin = ({ orders, meta }) => {
                   <Badge className={getStatusColor(order.orderStatus)}>
                     {order.orderStatus}
                   </Badge>
-                </TableCell>               
+                </TableCell>
                 <TableCell className="text-right">{order.totalPrice}</TableCell>
               </TableRow>
             ))}

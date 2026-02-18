@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { MedicineCardType } from "@/types/medicine.types";
+import { PaginationMeta } from "@/types/order.typs";
 
 type MedicineTableProps = {
   data: any;
@@ -21,6 +22,7 @@ export function MedicineTableAdmin({
   pagination,
 }: {
   data: MedicineTableProps;
+  pagination:PaginationMeta
 }) {
   const { limit, page: currentPage, total, totalPages } = pagination;
   return (
