@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
+import { verifyEmail } from "@/services/user.service";
+
 import Link from "next/link";
 
 type TokenProps = {
@@ -21,15 +23,16 @@ export default async function VerifyEmailPage({ searchParams }: TokenProps) {
     );
   }
 
-  const result = await authClient.verifyEmail({
-    query: {
-      token,
-    },
-  });
+  //   const result = await authClient.verifyEmail({
+  //     query: {
+  //       token,
+  //     },
+  //   });
+  const result = await verifyEmail({ token });
 
-  console.log(result);
+//   console.log(result);
 
-  if (!result?.data?.status) {
+  if (!result.status) {
     return (
       <div className="min-h-70 flex items-center justify-center">
         <p>Verification failed or token expired.</p>

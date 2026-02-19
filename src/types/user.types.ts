@@ -56,3 +56,8 @@ export interface AuthUser {
 	createdAt: string
 	updatedAt: string
 }
+
+
+export interface TokenParams {
+	token: string
+}

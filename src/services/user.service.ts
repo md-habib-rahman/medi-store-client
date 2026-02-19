@@ -1,7 +1,7 @@
 "use server"
 import { authClient } from "@/lib/auth-client"
 import { LoginPayload } from "@/types/login.types"
-import { updateUserInfoPayload, userImagePayload, userRolePayload, userStatusPayload } from "@/types/user.types"
+import { TokenParams, updateUserInfoPayload, userImagePayload, userRolePayload, userStatusPayload } from "@/types/user.types"
 import { cookies } from "next/headers"
 
 
@@ -31,7 +31,7 @@ export const getSession = async () => {
 		const session = await res.json()
 		// console.log(session)
 
-		console.log(session)
+		// console.log(session)
 		return { data: session, error: null }
 
 
@@ -269,5 +269,34 @@ export const logOut = async () => {
 
 	console.log(res)
 	return { success: true, error: null }
+
+}
+
+export const verifyEmail = async (params: TokenParams) => {
+	try {
+		const url = new URL(`${API_URL}/auth/verify-email`)
+
+		if (params) {
+			Object.entries(params).forEach(([key, value]) => {
+				if (value !== undefined && value !== null && value !== "") {
+					url.searchParams.append(key, value)
+				}
+			})
+		}
+		const res = await fetch(url.toString())		// headers: {
+		// 	"Content-type": "application/json",
+		// 	Cookie: cookieStore.toString()
+		// },
+		// cache: "no-store"
+
+		const result = await res.json()
+
+		// console.log(result)
+
+		return result
+
+	} catch (err) {
+		return { data: null, error: { message: "something went wrong!" } }
+	}
 
 }
