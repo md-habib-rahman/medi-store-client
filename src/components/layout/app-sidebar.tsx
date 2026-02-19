@@ -1,5 +1,6 @@
+"use client";
 import * as React from "react";
-
+import { usePathname } from "next/navigation";
 import { Route } from "@/types/routes.types";
 import {
   Sidebar,
@@ -16,13 +17,6 @@ import Link from "next/link";
 import { adminRoutes } from "@/routes/adminRoutes";
 import { sellerRoutes } from "@/routes/sellerRoutes";
 import { Roles } from "@/constants/roles";
-import {
-  ChartBarStacked,
-  LogOut,
-  Pill,
-  ShoppingBag,
-  UserRoundCog,
-} from "lucide-react";
 
 // This is sample data.
 
@@ -32,6 +26,8 @@ export function AppSidebar({
 }: {
   user: { role: string } & React.ComponentProps<typeof Sidebar>;
 }) {
+  const pathname = usePathname();
+
   let routes: Route[] = [];
   switch (user?.role) {
     case Roles.admin:
@@ -48,7 +44,6 @@ export function AppSidebar({
   return (
     <Sidebar {...props}>
       <SidebarContent>
-        {/* We create a SidebarGroup for each parent. */}
         {routes.map((item) => (
           <SidebarGroup key={item.title}>
             <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
@@ -56,9 +51,14 @@ export function AppSidebar({
               <SidebarMenu>
                 {item.items.map((item) => {
                   const Icon = item.icon;
+
+                  const isActive =
+                    pathname === item.url ||
+                    pathname.startsWith(item.url + "/");
+
                   return (
                     <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton asChild>
+                      <SidebarMenuButton asChild isActive={isActive}>
                         <Link href={`${item.url}`}>
                           <Icon className="w-5 h-5 mr-3 text-[#FA941E]" />
                           {item.title}
