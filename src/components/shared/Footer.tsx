@@ -4,56 +4,71 @@ import Link from "next/link";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+// import rumedi_logo from "/rumedi_logo.png";
+import Image from "next/image";
 
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-200 pt-16 pb-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
-        
-        {/* Brand */}
-        <div>
-          <h3 className="text-xl font-bold text-white mb-3">Rumedi</h3>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div className="relative">
+          {/* <h3 className="text-xl font-bold text-white mb-3">Rumedi</h3> */}
+          <Image src="/rumedi_logo.png" alt="rumedi_logo" fill></Image>
           <p className="text-sm text-gray-400">
-            Trusted online pharmacy delivering medicines to your doorstep safely.
+            Trusted online pharmacy delivering medicines to your doorstep
+            safely.
           </p>
         </div>
 
-        {/* Quick Links */}
+        
         <div>
           <h4 className="text-lg font-semibold text-white mb-3">Quick Links</h4>
           <ul className="space-y-2 text-sm">
             <li>
-              <Link href="/categories" className="hover:text-[#FA941E]">Categories</Link>
+              <Link href="/shops" className="hover:text-[#FA941E]">
+                Shop
+              </Link>
             </li>
             <li>
-              <Link href="/how-it-works" className="hover:text-[#FA941E]">How It Works</Link>
+              <Link href="/how-it-works" className="hover:text-[#FA941E]">
+                How It Works
+              </Link>
             </li>
             <li>
-              <Link href="/about" className="hover:text-[#FA941E]">About Us</Link>
+              <Link href="/about" className="hover:text-[#FA941E]">
+                About Us
+              </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:text-[#FA941E]">Contact</Link>
+              <Link href="/contact" className="hover:text-[#FA941E]">
+                Contact
+              </Link>
             </li>
           </ul>
         </div>
 
-        {/* Customer Support */}
+       
         <div>
           <h4 className="text-lg font-semibold text-white mb-3">Support</h4>
           <ul className="space-y-2 text-sm">
             <li>
-              <Link href="/faq" className="hover:text-[#FA941E]">FAQ</Link>
+              <Link href="/faq" className="hover:text-[#FA941E]">
+                FAQ
+              </Link>
             </li>
             <li>
-              <Link href="/terms" className="hover:text-[#FA941E]">Terms & Conditions</Link>
+              <Link href="/terms" className="hover:text-[#FA941E]">
+                Terms & Conditions
+              </Link>
             </li>
             <li>
-              <Link href="/privacy" className="hover:text-[#FA941E]">Privacy Policy</Link>
+              <Link href="/privacy" className="hover:text-[#FA941E]">
+                Privacy Policy
+              </Link>
             </li>
           </ul>
         </div>
 
-        {/* Newsletter / CTA */}
         <div>
           <h4 className="text-lg font-semibold text-white mb-3">Subscribe</h4>
           <p className="text-sm text-gray-400 mb-3">
@@ -65,7 +80,10 @@ export default function Footer() {
               placeholder="Enter your email"
               className="flex-1"
             />
-            <Button type="submit" className="bg-[#FA941E] hover:bg-[#e88a18] text-white">
+            <Button
+              type="submit"
+              className="bg-[#FA941E] hover:bg-[#e88a18] text-white"
+            >
               Subscribe
             </Button>
           </form>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Home, Package, LogOut, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -49,7 +49,7 @@ export default function ProfileLayoutClient({ children, userRole }: Props) {
     userRole ? item.roles.includes(userRole) : false,
   );
 
-//   console.log(newMenu);
+  //   console.log(newMenu);
 
   return (
     <div className="min-h-screen">

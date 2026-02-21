@@ -1,18 +1,19 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { authClient } from "@/lib/auth-client";
+
 import {
   getSession,
   updateUserImage,
   updateUserInfo,
 } from "@/services/user.service";
 import { uploadToImgbb } from "@/lib/uploadToImgbb";
+import Loading from "@/components/shared/Loader";
 
 type User = {
   id: string;
@@ -24,8 +25,6 @@ type User = {
 };
 
 export default function AccountInformation({ user }: { user: User }) {
-  
-
   const [formData, setFormData] = useState({
     name: user.name || "",
     email: user.email || "",
@@ -35,6 +34,7 @@ export default function AccountInformation({ user }: { user: User }) {
   });
 
   const [preview, setPreview] = useState<string | null>(user.image || null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -43,7 +43,6 @@ export default function AccountInformation({ user }: { user: User }) {
     }));
   };
 
-  // profile image preview
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -64,6 +63,7 @@ export default function AccountInformation({ user }: { user: User }) {
 
   const handleSubmit = async () => {
     try {
+      setLoading(true);
       const res = await updateUserInfo(user.id, formData);
       //   console.log(res);
       if (res.success) {
@@ -73,10 +73,13 @@ export default function AccountInformation({ user }: { user: User }) {
       }
     } catch (err) {
       toast.error("Failed to update profile");
+    } finally {
+      setLoading(false);
     }
   };
 
   if (!user) return <div>Not logged in</div>;
+  if (loading) return <Loading />;
 
   return (
     <div className="rounded-lg shadow-sm p-6 bg-white">
@@ -95,7 +98,6 @@ export default function AccountInformation({ user }: { user: User }) {
         </Button>
       </div>
 
-      
       <div className="flex items-center gap-6 mb-8">
         <div className="relative w-24 h-24 rounded-full overflow-hidden border">
           <Image
