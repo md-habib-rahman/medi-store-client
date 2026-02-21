@@ -5,7 +5,6 @@ import { getSession } from "@/services/user.service";
 import { Loader } from "lucide-react";
 import { Suspense } from "react";
 
-
 const CommonLayout = async ({ children }: { children: React.ReactNode }) => {
   const { data } = await getSession();
   const session = data?.session;
@@ -15,9 +14,7 @@ const CommonLayout = async ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div>
-      <Suspense fallback={<Loading />}>
-        <Navbar session={session} user={user} />
-      </Suspense>
+      <Navbar session={session} user={user} />
 
       {children}
       <Footer />
