@@ -29,7 +29,7 @@ export const getSession = async () => {
 		// const { data: session } = await authClient.getSession()
 
 		const session = await res.json()
-		// console.log(session)
+		console.log(session)
 
 		// console.log(session)
 		return { data: session, error: null }
