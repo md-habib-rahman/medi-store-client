@@ -31,9 +31,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
 		<NextTopLoader 
-          color="#2e7d32" 
+          color="#2F91CC" 
           showSpinner={false}
-          shadow="0 0 10px #2e7d32,0 0 5px #2e7d32"
+          shadow="0 0 10px #2F91CC,0 0 5px #2F91CC"
         />
        
         {children}
