@@ -20,7 +20,7 @@ export const proxy = async (req: NextRequest) => {
 	let isCustomer = false;
 
 	const { data } = await getSession()
-	// console.log(data)
+	console.log(data)
 	const role = data?.user?.role;
 
 	if (data?.user) {
