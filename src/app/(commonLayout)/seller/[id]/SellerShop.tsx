@@ -27,7 +27,7 @@ export default async function SellerShop({
 
   return (
     <div className="container mx-auto py-20">
-      <div className="flex flex-col lg:flex-row items-center justify-around">
+      <div className="flex flex-col lg:flex-row items-center justify-around gap-2 px-2">
         <PublicDropDownCategory categories={data1?.data} />
         <PublicDropDownManufacturer manufacturers={data2.data} />
         <PriceFilterShop />

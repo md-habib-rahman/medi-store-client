@@ -19,12 +19,12 @@ function PriceFilterShop() {
   const handlePriceFilter = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("maxprice", maxprice);
-	router.push(`?${params.toString()}`);
+    router.push(`?${params.toString()}`);
   };
 
-//   console.log(maxprice);
+  //   console.log(maxprice);
   return (
-    <div className="flex  gap-2">
+    <div className="flex  gap-2 items-center justify-between">
       <Input
         type={"number"}
         name="maxprice"

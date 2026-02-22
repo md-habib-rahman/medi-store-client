@@ -27,7 +27,7 @@ function PublicDropDownCategory({ categories }: { categories: Category[] }) {
   //   console.log({ categoryId });
   //   console.log(items);
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 justify-between">
       <p>Category</p>
       <Select value={currentCategoryId} onValueChange={handleChange}>
         <SelectTrigger className="w-xs">

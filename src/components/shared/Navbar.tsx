@@ -26,7 +26,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { getCart, removeFromCart } from "@/services/cart.service";
 import { AuthUser, Session } from "@/types/user.types";
@@ -41,8 +41,20 @@ export default function Navbar({
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [cart, setCart] = useState<CartItem[]>([]);
-
+  const pathname = usePathname();
   const router = useRouter();
+  const isActive = (path: string) => pathname === path;
+
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "Shop", href: "/shops" },
+    { name: "Dashboard", href: "/dashboard" },
+    { name: "About Us", href: "/about" },
+  ];
+
+  const getLinkStyle = (path: string) => ({
+    color: isActive(path) ? "#FA941E" : "#2F91CC",
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -119,23 +131,18 @@ export default function Navbar({
             </Link>
           </div>
           <div className="hidden md:flex items-center gap-6">
-            <Link href="/" className="text-primary font-medium  ">
-              Home
-            </Link>
-
-            <Link href="/shops" className="text-primary font-medium ">
-              Shop
-            </Link>
-            <Link href="/dashboard" className="text-primary font-medium ">
-              Dashboard
-            </Link>
-
-            <Link href="/about" className="text-primary font-medium ">
-              About Us
-            </Link>
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="font-medium transition-colors hover:opacity-80"
+                style={getLinkStyle(link.href)}
+              >
+                {link.name}
+              </Link>
+            ))}
           </div>
 
-          {/* Right Side Navigation */}
           <nav className="flex items-center gap-2">
             <DropdownMenu>
               <DropdownMenuTrigger>
@@ -157,15 +164,15 @@ export default function Navbar({
                 ) : (
                   cart.map((item) => (
                     <DropdownMenuItem className="flex items-start gap-3 p-3 cursor-default focus:bg-transparent">
-                      {/* Thumbnail */}
-                      <Image
-                        src={item.thumbnail}
-                        alt={item.title}
-                        fill
-                        className="h-12 w-12 rounded-md object-cover border"
-                      />
+                      <div className="relative h-12 w-12">
+                        <Image
+                          src={item.thumbnail}
+                          alt={item.title}
+                          fill
+                          className="rounded-md object-cover border"
+                        />
+                      </div>
 
-                      {/* Content */}
                       <div className="flex-1 space-y-1">
                         <p className="text-sm font-medium leading-tight line-clamp-2">
                           {item.title}
@@ -279,6 +286,41 @@ export default function Navbar({
           </nav>
         </div>
       </div>
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden absolute top-16 left-0 w-full bg-white border-b shadow-lg animate-in slide-in-from-top duration-300">
+          <nav className="flex flex-col p-4 gap-4">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsMobileMenuOpen(false)} // Close menu on click
+                className="text-lg font-semibold p-2 rounded-md"
+                style={getLinkStyle(link.href)}
+              >
+                {link.name}
+              </Link>
+            ))}
+            {!session && (
+              <div className="flex flex-col gap-2 mt-2 pt-4 border-t">
+                <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button variant="rumedi_primary" className="w-full">
+                    Login
+                  </Button>
+                </Link>
+                <Link
+                  href="/register"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <Button variant="rumedi_secondary" className="w-full">
+                    Register
+                  </Button>
+                </Link>
+              </div>
+            )}
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
