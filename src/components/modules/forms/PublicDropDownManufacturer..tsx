@@ -27,7 +27,7 @@ function PublicDropDownManufacturer({
   };
   //   console.log(manufacture);
   return (
-    <div className="flex items-center gap-2 justify-between">
+    <div className="flex items-center gap-2 justify-between w-full">
       <p>Manufacturer</p>
       <Select value={currentManufacturer} onValueChange={handleChange}>
         <SelectTrigger className="w-xs">

@@ -11,14 +11,17 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-200 pt-16 pb-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
-        <div className="relative w-40 h-12">
-          <Image
-            src="/rumedi_logo.png"
-            alt="rumedi_logo"
-            fill
-            className="object-contain object-left"
-            priority
-          ></Image>
+        <div>
+          <div className="relative w-40 h-12">
+            <Image
+              src="/rumedi_logo.png"
+              alt="rumedi_logo"
+              fill
+              className="object-contain object-left"
+              priority
+            ></Image>
+          </div>
+
           <p className="text-sm text-gray-400">
             Trusted online pharmacy delivering medicines to your doorstep
             safely.

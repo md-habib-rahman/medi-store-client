@@ -24,11 +24,12 @@ function PriceFilterShop() {
 
   //   console.log(maxprice);
   return (
-    <div className="flex  gap-2 items-center justify-between">
+    <div className="flex  gap-2 items-center justify-between w-full">
       <Input
         type={"number"}
         name="maxprice"
         value={maxprice}
+		placeholder="Enter Max Price"
         onChange={(e) => {
           setMaxprice(e.target.value);
         }}
