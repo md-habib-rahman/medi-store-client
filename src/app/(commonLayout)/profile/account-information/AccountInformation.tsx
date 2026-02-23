@@ -14,6 +14,7 @@ import {
 } from "@/services/user.service";
 import { uploadToImgbb } from "@/lib/uploadToImgbb";
 import Loading from "@/components/shared/Loader";
+import { useRouter } from "next/navigation";
 
 type User = {
   id: string;
@@ -25,6 +26,7 @@ type User = {
 };
 
 export default function AccountInformation({ user }: { user: User }) {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: user.name || "",
     email: user.email || "",
@@ -67,7 +69,17 @@ export default function AccountInformation({ user }: { user: User }) {
       const res = await updateUserInfo(user.id, formData);
       //   console.log(res);
       if (res.success) {
+        // setFormData({
+        //   name: res.user.name,
+        //   email: res.data.email,
+        //   phone: res.data.phone ?? "",
+        //   address: res.data.address ?? "",
+        //   image: res.data.image ?? "",
+        // });
+
+        // console.log(res);
         toast.success("Profile updated successfully");
+        router.refresh();
       } else {
         toast.error("Failed to update profile");
       }
