@@ -16,17 +16,14 @@ export default function AddMedicineClient({
 
   return (
     <div>
-      {/* CREATE */}
-      {/* <AddMedicineForm mode="create" /> */}
 
-      {/* UPDATE */}
       {selectedMedicine ? (
         <AddMedicineForm mode="update" initialData={selectedMedicine} />
       ) : (
         <AddMedicineForm mode="create" />
       )}
 
-      {/* TABLE */}
+     
       <MedicineTable
         data={data}
         onEdit={(medicine) => setSelectedMedicine(medicine)}

@@ -1,5 +1,6 @@
 "use client";
 import { deleteCategory } from "@/actions/action";
+import Loading from "@/components/shared/Loader";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -11,13 +12,16 @@ import {
 } from "@/components/ui/table";
 import { CategoryResponse } from "@/types/categories.types";
 import { Trash } from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 export function CategoriesTable({ data }: { data: CategoryResponse }) {
+  const [loading, setLoading] = useState(false);
   const onDelete = async (id: string) => {
     const toastId = toast.loading("Deleting....");
 
     try {
+      setLoading(true);
       const res = await deleteCategory(id);
       if (res.error) {
         toast.error(res.error.message, { id: toastId });
@@ -27,8 +31,12 @@ export function CategoriesTable({ data }: { data: CategoryResponse }) {
       toast.success("Post Deleted", { id: toastId });
     } catch (err) {
       toast.error("Something Went Wrong", { id: toastId });
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) return <Loading />;
   return (
     <Table>
       <TableHeader>

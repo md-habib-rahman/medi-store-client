@@ -29,7 +29,7 @@ export const getSession = async () => {
 		// const { data: session } = await authClient.getSession()
 
 		const session = await res.json()
-		console.log(session)
+		// console.log(session)
 
 		// console.log(session)
 		return { data: session, error: null }
@@ -205,7 +205,7 @@ export const updateUserInfo = async (id: string, payload: updateUserInfoPayload)
 		// 		data: null, error: { message: "Something went wrong!" }
 		// 	}
 		// }
-		return { success: true, error: null }
+		return { success: true, error: null, data: data }
 
 	} catch (err) {
 		console.error(err)

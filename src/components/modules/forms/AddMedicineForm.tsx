@@ -28,6 +28,7 @@ import {
   MedicineData,
   MedicinePayload,
 } from "@/types/medicine.types";
+import Loading from "@/components/shared/Loader";
 
 type Category = {
   id: string;
@@ -49,7 +50,6 @@ export const AddMedicineForm = ({
 
   const API_URL = process.env.NEXT_PUBLIC_BASE_API;
 
-  // 🔹 fetch categories
   useEffect(() => {
     const fetchCategories = async () => {
       const res = await fetch(`${API_URL}/categories/all`);
@@ -60,7 +60,6 @@ export const AddMedicineForm = ({
     fetchCategories();
   }, []);
 
-  //   console.log(categories);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -113,6 +112,8 @@ export const AddMedicineForm = ({
       setLoading(false);
     }
   };
+
+  if (loading) return <Loading />;
 
   return (
     <Card className="max-w-4xl mx-auto p-4 mb-8">

@@ -1,6 +1,7 @@
 "use client";
 
 import { addCategory } from "@/actions/action";
+import Loading from "@/components/shared/Loader";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,6 +19,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { useForm } from "@tanstack/react-form";
+import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -29,6 +31,7 @@ const Schema = z.object({
 });
 
 export function CreateCategory() {
+  const [loading, setLoading] = useState(false);
   const form = useForm({
     defaultValues: {
       title: "",
@@ -43,9 +46,10 @@ export function CreateCategory() {
         title: value.title,
       };
 
-    //   console.log(category);
+      //   console.log(category);
 
       try {
+        setLoading(true);
         const res = await addCategory(category);
 
         // console.log(res);
@@ -58,9 +62,13 @@ export function CreateCategory() {
         toast.success("Post Created", { id: toastId });
       } catch (err) {
         toast.error("Something Went Wrong", { id: toastId });
+      } finally {
+        setLoading(false);
       }
     },
   });
+
+  if (loading) return <Loading />;
 
   return (
     <Card className="w-full">
@@ -86,9 +94,7 @@ export function CreateCategory() {
                   field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name}>
-                      Category Title
-                    </FieldLabel>
+                    <FieldLabel htmlFor={field.name}>Category Title</FieldLabel>
                     <Input
                       type="text"
                       id={field.name}
@@ -108,7 +114,11 @@ export function CreateCategory() {
         </form>
       </CardContent>
       <CardFooter className="flex flex-col">
-        <Button form="categories" type="submit" className="w-full cursor-pointer">
+        <Button
+          form="categories"
+          type="submit"
+          className="w-full cursor-pointer"
+        >
           Submit
         </Button>
       </CardFooter>

@@ -15,6 +15,7 @@ import { orderService } from "@/services/order.service";
 import { postOrders } from "@/actions/action";
 import { toast } from "sonner";
 import Link from "next/link";
+import Loading from "@/components/shared/Loader";
 
 type CartItem = {
   medicineId: string;
@@ -35,6 +36,7 @@ export default function CartPage() {
   const [selectedSeller, setSelectedSeller] = useState<string | null>(null);
   const [newItem, setNewItem] = useState<NewItem[]>([]);
   const [deliveryAddress, setDeliveryAddress] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   //   console.log(deliveryAddress);
 
   useEffect(() => {
@@ -61,6 +63,7 @@ export default function CartPage() {
 
   const handleCheckOut = async () => {
     try {
+      setLoading(true);
       const { data } = await getSession();
       const user = data.user;
       // console.log(cart);
@@ -101,6 +104,8 @@ export default function CartPage() {
       }
     } catch (err: any) {
       toast.error(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -183,6 +188,8 @@ export default function CartPage() {
       ),
     );
   }
+
+  if (loading) return <Loading />;
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-6">

@@ -13,6 +13,7 @@ import { ReviewDialog } from "@/components/modules/orders/ReviewDialog";
 import Image from "next/image";
 import { getStatusColor } from "@/constants/statusColor";
 import { Order, PaginationMeta } from "@/types/order.typs";
+import Loading from "@/components/shared/Loader";
 
 interface OrdersClientProps {
   orders: Order[];
@@ -25,8 +26,13 @@ export default function OrdersClient({
 }: OrdersClientProps) {
   const [open, setOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  if (loading) return <Loading />;
 
   //   console.log(open);
+
+//   const handleCancel = async (id: string) => {};
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
@@ -105,6 +111,17 @@ export default function OrdersClient({
                 <div className="text-xl sm:text-2xl font-bold text-gray-900">
                   ${order.totalPrice}
                 </div>
+
+                {/* {order.orderStatus === "PENDING" && (
+                  <Button
+                    variant={"rumedi_secondary"}
+                    onClick={() => {
+                      handleCancel(order.id);
+                    }}
+                  >
+                    Cancel Order
+                  </Button>
+                )} */}
 
                 {order.orderStatus === "DELIVERED" && (
                   <Button
